@@ -31,3 +31,7 @@ ryad.app/
 ```
 
 4. Deploy - Vercel will handle the rest
+
+---
+
+Deployed on Vercel 🚀

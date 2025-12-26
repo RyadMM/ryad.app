@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Guide du Paresseux Organisé | TDAH & Minimaliste</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Tons neutres chauds (Pierre/Stone) avec accents Orange Énergique pour le focus et Vert Émeraude pour la validation. -->
+    
+    <!-- Application Structure Plan: 
+         1. Hero Section: Validation immédiate du persona (Paresseux/TDAH/Économe).
+         2. La Philosophie (Intro): Explication visuelle de la "Friction Cognitive" via Chart.js.
+         3. Les Zones (Stratégie): Division de l'appart en "Zones de largage" pour éviter le désordre.
+         4. Le Matos (Galerie): Liste d'objets pas chers (IKEA/Dollarama style) filtrable par catégorie.
+         5. Test du "Floor-drobe": Petit quiz interactif pour valider le besoin.
+    -->
+
+    <!-- Visualization & Content Choices:
+         1. Chart.js Bar Chart: Comparer l'effort mental d'un cintre vs un crochet.
+         2. Grilles/Cartes: Pour présenter les objets clairement.
+         3. Filtres JS: Pour trier les objets par "Vêtements" ou "Vrac".
+         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #fafaf9; color: #1c1917; }
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 600px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 300px; 
+            max-height: 400px; 
+        } 
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .filter-btn.active { background-color: #ea580c; color: white; border-color: #ea580c; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f5f5f4; }
+        ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased selection:bg-orange-200 selection:text-orange-900">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-stone-50/90 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🧠</span>
+                    <span class="font-bold text-lg tracking-tight">Le Guide <span class="text-orange-600">Anti-Chaos</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <button onclick="scrollToSection('philosophie')" class="text-stone-600 hover:text-orange-600 transition-colors font-medium">La Logique</button>
+                    <button onclick="scrollToSection('zones')" class="text-stone-600 hover:text-orange-600 transition-colors font-medium">Les Zones</button>
+                    <button onclick="scrollToSection('materiel')" class="text-stone-600 hover:text-orange-600 transition-colors font-medium">Le Matos (Pas cher)</button>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-stone-600 text-2xl px-2">☰</button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-stone-50 border-b border-stone-200 px-4 py-2 shadow-lg">
+            <button onclick="scrollToSection('philosophie')" class="block py-3 w-full text-left text-stone-600 border-b border-stone-100">La Logique</button>
+            <button onclick="scrollToSection('zones')" class="block py-3 w-full text-left text-stone-600 border-b border-stone-100">Les Zones</button>
+            <button onclick="scrollToSection('materiel')" class="block py-3 w-full text-left text-stone-600">Le Matos</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-20">
+
+        <!-- Hero Section -->
+        <header class="text-center space-y-6 py-12 md:py-20">
+            <div class="inline-block px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-bold mb-2 uppercase tracking-wide">Pour TDAH, Radins & Paresseux</div>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-stone-900 tracking-tight leading-tight">
+                Domptez votre 3 ½ <br class="hidden md:block" /> <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">sans effort (ou presque).</span>
+            </h1>
+            <p class="text-lg md:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
+                Le minimalisme ici, c'est pas d'avoir des murs blancs. C'est d'avoir un système qui marche quand t'as zéro énergie. Une stratégie "zéro friction" pour ton linge et ton bordel.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+                <button onclick="scrollToSection('materiel')" class="bg-stone-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-stone-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    Voir la liste d'achats ($)
+                </button>
+                <button onclick="scrollToSection('philosophie')" class="bg-white text-stone-900 border border-stone-300 px-8 py-3 rounded-lg font-semibold hover:bg-stone-50 transition-all">
+                    Comprendre la méthode
+                </button>
+            </div>
+        </header>
+
+        <!-- Section 1: Philosophy & Data -->
+        <section id="philosophie" class="scroll-mt-24">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-stone-200">
+                <div class="mb-8 border-b border-stone-100 pb-6">
+                    <h2 class="text-3xl font-bold text-stone-800 mb-3">La Science de la Paresse</h2>
+                    <p class="text-stone-600 text-lg">
+                        Le problème, ce n'est pas toi, c'est les portes de placard. Le cerveau TDAH déteste les étapes cachées. 
+                        Voici pourquoi tes vêtements finissent sur "La Chaise".
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <!-- Chart -->
+                    <div class="bg-stone-50 rounded-xl p-6 border border-stone-200 shadow-inner">
+                        <h3 class="text-center font-semibold text-stone-700 mb-4">Unités d'Effort Cognitif</h3>
+                        <div class="chart-container">
+                            <canvas id="effortChart"></canvas>
+                        </div>
+                        <p class="text-center text-xs text-stone-500 mt-4 italic">Moins d'étapes = Plus de chances de ranger.</p>
+                    </div>
+
+                    <!-- Key Rules -->
+                    <div class="space-y-6">
+                        <div class="group cursor-pointer">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-orange-100 text-orange-700 font-bold px-2 py-1 rounded text-sm">RÈGLE #1</span>
+                                <h3 class="font-bold text-stone-900 text-lg group-hover:text-orange-600 transition-colors">La Loi des 2 Secondes</h3>
+                            </div>
+                            <p class="text-stone-600 pl-2 border-l-2 border-stone-200 group-hover:border-orange-300 transition-all">
+                                Si ranger un objet prend plus de 2 secondes, il finira par terre. C'est garanti. Élimine les cintres, les couvercles et les piles complexes.
+                            </p>
+                        </div>
+
+                        <div class="group cursor-pointer">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-stone-200 text-stone-700 font-bold px-2 py-1 rounded text-sm">RÈGLE #2</span>
+                                <h3 class="font-bold text-stone-900 text-lg group-hover:text-stone-600 transition-colors">Visibilité Totale</h3>
+                            </div>
+                            <p class="text-stone-600 pl-2 border-l-2 border-stone-200 group-hover:border-stone-400 transition-all">
+                                "Loin des yeux, loin du cœur" (et perdu à jamais). Si tu ne le vois pas, ça n'existe pas. Utilise des rangements ouverts.
+                            </p>
+                        </div>
+
+                        <div class="group cursor-pointer">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-stone-200 text-stone-700 font-bold px-2 py-1 rounded text-sm">RÈGLE #3</span>
+                                <h3 class="font-bold text-stone-900 text-lg group-hover:text-stone-600 transition-colors">Le "Panier de Doom"</h3>
+                            </div>
+                            <p class="text-stone-600 pl-2 border-l-2 border-stone-200 group-hover:border-stone-400 transition-all">
+                                Avoir un panier fourre-tout dans chaque pièce n'est pas du désordre, c'est un système de gestion de flux. C'est la zone tampon légale.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Zones (Strategy) -->
+        <section id="zones" class="scroll-mt-24">
+            <div class="mb-10 text-center md:text-left">
+                <h2 class="text-3xl font-bold text-stone-800">Stratégie par Zones (3 ½)</h2>
+                <p class="text-stone-600 mt-2 text-lg">On hack ton appartement pour qu'il travaille pour toi, pas contre toi.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Zone Entrée -->
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-4">🚪</div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-2">Zone "Crash" (Entrée)</h3>
+                    <p class="text-sm text-stone-500 mb-4">Là où tout explose en arrivant.</p>
+                    <ul class="space-y-3 text-sm text-stone-700">
+                        <li class="flex items-start bg-stone-50 p-2 rounded"><span class="text-green-500 font-bold mr-2">✓</span><span><strong>Crochets muraux (x4):</strong> Clés, manteau, sac. Pas de cintre. Jamais.</span></li>
+                        <li class="flex items-start bg-stone-50 p-2 rounded"><span class="text-green-500 font-bold mr-2">✓</span><span><strong>Panier "Vide-Poche":</strong> Pour le courrier et le contenu des poches.</span></li>
+                        <li class="flex items-start bg-stone-50 p-2 rounded"><span class="text-green-500 font-bold mr-2">✓</span><span><strong>Banc ouvert:</strong> Juste une tablette pour glisser les souliers dessous.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Zone Vetements -->
+                <div class="bg-white p-6 rounded-xl border-2 border-orange-500 shadow-md relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">PRIORITÉ</div>
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-4">👕</div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-2">Zone Vêtements</h3>
+                    <p class="text-sm text-stone-500 mb-4">L'ennemi juré du pliage.</p>
+                    <ul class="space-y-3 text-sm text-stone-700">
+                        <li class="flex items-start bg-orange-50 p-2 rounded"><span class="text-green-500 font-bold mr-2">✓</span><span><strong>La Chaise (Officialisée):</strong> Un portant simple ou des patères pour le "mi-sale".</span></li>
+                        <li class="flex items-start bg-orange-50 p-2 rounded"><span class="text-green-500 font-bold mr-2">✓</span><span><strong>Bacs sans couvercle:</strong> Un bac chaussettes, un bac boxers. On jette, on ne plie pas.</span></li>
+                        <li class="flex items-start bg-orange-50 p-2 rounded"><span class="text-green-500 font-bold mr-2">✓</span><span><strong>Portant ouvert:</strong> Si le placard a des portes, enlève-les ou ignore-les.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Zone Salon/Vrac -->
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-4">🛋️</div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-2">Zone Salon / Vrac</h3>
+                    <p class="text-sm text-stone-500 mb-4">Où traînent les manettes et les papiers.</p>
+                    <ul class="space-y-3 text-sm text-stone-700">
+                        <li class="flex items-start bg-stone-50 p-2 rounded"><span class="text-green-500 font-bold mr-2">✓</span><span><strong>Le "Panier de la Honte":</strong> Un beau panier au sol. Tout ce qui traîne va dedans avant de dormir.</span></li>
+                        <li class="flex items-start bg-stone-50 p-2 rounded"><span class="text-green-500 font-bold mr-2">✓</span><span><strong>Table basse à tiroir:</strong> Pour cacher les manettes/fils rapidement.</span></li>
+                        <li class="flex items-start bg-stone-50 p-2 rounded"><span class="text-green-500 font-bold mr-2">✓</span><span><strong>Poubelle visible:</strong> Si tu ne la vois pas, tu laisses traîner.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Items (Shopping List) -->
+        <section id="materiel" class="scroll-mt-24">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-stone-200 pb-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-stone-800">Le Matos (Mode Radin)</h2>
+                    <p class="text-stone-600 mt-2">Pas besoin de meubles design. Voici les essentiels fonctionnels.</p>
+                </div>
+                <div class="flex space-x-2 mt-4 md:mt-0">
+                    <button class="filter-btn active px-4 py-2 rounded-full border border-stone-300 text-sm font-medium transition-all" onclick="filterItems('all', this)">Tout</button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-stone-300 text-sm font-medium transition-all text-stone-600 hover:bg-stone-50" onclick="filterItems('vetements', this)">Vêtements</button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-stone-300 text-sm font-medium transition-all text-stone-600 hover:bg-stone-50" onclick="filterItems('vrac', this)">Vrac & Autre</button>
+                </div>
+            </div>
+
+            <!-- Items Grid -->
+            <div id="items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Items will be populated by JS -->
+            </div>
+            
+            <div class="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-center text-yellow-800 text-sm">
+                💡 <strong>Conseil de radin :</strong> Check Marketplace ou les groupes "Giveaway" locaux avant d'acheter neuf. Ces items sont très communs.
+            </div>
+        </section>
+
+        <!-- Section 4: Interactive Check -->
+        <section class="bg-stone-900 rounded-2xl p-8 md:p-12 text-center text-white shadow-2xl">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Le Test du "Floor-drobe"</h2>
+            <p class="text-stone-400 mb-8 max-w-xl mx-auto">Coche ce qui est vrai pour toi aujourd'hui :</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto text-left mb-8">
+                <label class="flex items-center space-x-3 p-4 bg-stone-800 rounded-lg cursor-pointer hover:bg-stone-700 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-orange-500 form-checkbox" onchange="updateScore()">
+                    <span>Il y a des vêtements sur une chaise depuis > 3 jours</span>
+                </label>
+                <label class="flex items-center space-x-3 p-4 bg-stone-800 rounded-lg cursor-pointer hover:bg-stone-700 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-orange-500 form-checkbox" onchange="updateScore()">
+                    <span>Je perds mes clés au moins 1x/semaine</span>
+                </label>
+                <label class="flex items-center space-x-3 p-4 bg-stone-800 rounded-lg cursor-pointer hover:bg-stone-700 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-orange-500 form-checkbox" onchange="updateScore()">
+                    <span>J'ai du linge propre mélangé au sale</span>
+                </label>
+                <label class="flex items-center space-x-3 p-4 bg-stone-800 rounded-lg cursor-pointer hover:bg-stone-700 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-orange-500 form-checkbox" onchange="updateScore()">
+                    <span>Je déteste plier le linge (viscéralement)</span>
+                </label>
+            </div>
+
+            <div id="score-result" class="hidden animate-fade-in">
+                <p class="text-xl font-bold text-orange-400 mb-2">Diagnostic : Tu as besoin de ce système.</p>
+                <p class="text-stone-300 text-sm">Arrête d'essayer d'être Martha Stewart. Achète des crochets.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-100 py-8 mt-12 border-t border-stone-200 text-center text-stone-500 text-sm">
+        <p>Généré pour un 3½ minimaliste et fonctionnel.</p>
+        <p class="mt-2 opacity-70">Aucun pliage de chaussette n'a été effectué durant la création de ce site.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data for Items
+        const itemsData = [
+            {
+                id: 1,
+                name: "Patère de porte (Over-door)",
+                category: "vetements",
+                price: "10$ - 15$",
+                desc: "Zéro trou, zéro outil. Tu l'accroches sur la porte de la chambre ou de la salle de bain.",
+                why: "Transforme un espace mort en rangement immédiat pour peignoir/jeans.",
+                icon: "🚪"
+            },
+            {
+                id: 2,
+                name: "Bacs en tissu (SKUBB/DRONA)",
+                category: "vetements",
+                price: "5$ - 8$",
+                desc: "Bacs carrés simples. Prends-en 4 : Chaussettes, Boxers, T-shirts maison, Sport.",
+                why: "Élimine le besoin de plier. Tu tries, tu lances, tu oublies.",
+                icon: "📦"
+            },
+            {
+                id: 3,
+                name: "Portant à vêtements (Rack)",
+                category: "vetements",
+                price: "20$ - 30$",
+                desc: "Simple barre sur roulettes ou fixe. Plus c'est simple, mieux c'est.",
+                why: "Remplace le placard sombre. Tout est visible, donc tu sais ce que tu as.",
+                icon: "👗"
+            },
+            {
+                id: 4,
+                name: "Crochets adhésifs robustes",
+                category: "vrac",
+                price: "8$ (paquet)",
+                desc: "Style Command 3M (les gros modèles). Pour l'entrée (clés, casquette).",
+                why: "Tu peux les coller EXACTEMENT là où tu lâches tes affaires naturellement.",
+                icon: "🪝"
+            },
+            {
+                id: 5,
+                name: "Panier à linge (x2)",
+                category: "vetements",
+                price: "10$ ch.",
+                desc: "Deux paniers ouverts (pas de couvercle!). Un pour le sale, un pour le 'pas sûr'.",
+                why: "Le couvercle est une barrière mentale. Enlève-le.",
+                icon: "🧺"
+            },
+            {
+                id: 6,
+                name: "Vide-poche entrée",
+                category: "vrac",
+                price: "0$ - 5$",
+                desc: "N'importe quel bol ou petit plateau. Sur le meuble le plus proche de la porte.",
+                why: "Empêche les clés de se téléporter dans le néant.",
+                icon: "🔑"
+            }
+        ];
+
+        // Function to render items
+        function renderItems(filter) {
+            const grid = document.getElementById('items-grid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'all' ? itemsData : itemsData.filter(item => item.category === filter);
+            
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-5 rounded-xl border border-stone-200 card-hover flex flex-col h-full';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="text-3xl bg-stone-50 p-2 rounded-lg">${item.icon}</div>
+                        <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded">${item.price}</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-stone-800 mb-1">${item.name}</h3>
+                    <p class="text-sm text-stone-500 mb-3 flex-grow">${item.desc}</p>
+                    <div class="bg-orange-50 p-3 rounded-lg border border-orange-100 mt-auto">
+                        <p class="text-xs text-orange-800 font-semibold">Pourquoi ça marche TDAH :</p>
+                        <p class="text-xs text-stone-600 mt-1">${item.why}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Logic
+        function filterItems(category, btn) {
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('active', 'bg-orange-600', 'text-white', 'border-orange-600');
+                b.classList.add('text-stone-600', 'hover:bg-stone-50');
+            });
+            btn.classList.add('active');
+            
+            renderItems(category);
+        }
+
+        // Scroll Logic
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if(el) el.scrollIntoView({ behavior: 'smooth' });
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // Mobile Menu Logic
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Floor-drobe Test Logic
+        function updateScore() {
+            const checkboxes = document.querySelectorAll('#items-grid input[type="checkbox"]'); // Selecting wrong checkboxes, fixing selection
+            // Actually selecting from the quiz section
+            const quizChecks = document.querySelectorAll('section:last-of-type input[type="checkbox"]');
+            let checked = 0;
+            quizChecks.forEach(c => { if(c.checked) checked++; });
+
+            if (checked > 0) {
+                document.getElementById('score-result').classList.remove('hidden');
+            } else {
+                document.getElementById('score-result').classList.add('hidden');
+            }
+        }
+
+        // Init Items
+        renderItems('all');
+
+        // Chart.js Implementation
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('effortChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Placard classique (Cintre)', 'Tiroir classique (Pliage)', 'Méthode Crochet', 'Méthode Bac Vrac'],
+                    datasets: [{
+                        label: 'Friction Cognitive (Nombre d\'étapes mentales)',
+                        data: [8, 6, 2, 1], // Scores arbitraires pour l'exemple
+                        backgroundColor: [
+                            'rgba(168, 162, 158, 0.5)', // Stone
+                            'rgba(168, 162, 158, 0.5)',
+                            'rgba(234, 88, 12, 0.8)',   // Orange (Highlighted solution)
+                            'rgba(234, 88, 12, 0.8)'    // Orange (Highlighted solution)
+                        ],
+                        borderColor: [
+                            'rgba(168, 162, 158, 1)',
+                            'rgba(168, 162, 158, 1)',
+                            'rgba(234, 88, 12, 1)',
+                            'rgba(234, 88, 12, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const labels = [
+                                        'Ouvrir porte -> Trouver cintre -> Accrocher -> Fermer',
+                                        'Ouvrir -> Plier vêtement -> Ranger -> Fermer',
+                                        'Attraper -> Accrocher (Fini)',
+                                        'Attraper -> Jeter (Fini)'
+                                    ];
+                                    return labels[context.dataIndex];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Niveau d\'effort (Pénibilité)'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
+

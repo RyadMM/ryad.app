@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/lazy",
+      "destination": "/lazy/site-gemini.html"
+    },
+    {
+      "source": "/lazy/:match*",
+      "destination": "/lazy/:match*"
+    }
+  ]
+}

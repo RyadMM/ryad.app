@@ -1,8 +1,12 @@
 {
-    "title": "CV Generator",
-    "subtitle": "Create professional CVs",
+    "title": "CvStash",
+    "subtitle": "Professional CVs, simplified",
     "editor": "Editor",
     "preview": "Preview",
+    "justNow": "Just now",
+    "minutesAgo": "{count}m ago",
+    "hoursAgo": "{count}h ago",
+    "daysAgo": "{count}d ago",
     "download": "Download PDF",
     "import": "Import",
     "export": "Export",
@@ -24,7 +28,6 @@
     "cannotDeleteLast": "Cannot delete the last CV",
     "generatingPDFs": "Generating PDFs",
     "cannotDeleteAll": "Cannot delete all CVs. Keep at least one.",
-    "pagebreakOnePage": "1 page",
-    "pagebreakAuto": "Auto",
-    "pagebreakWarning": "Content too long for 1 page. Use \"Auto\" for multi-page."
+    "charCount": "{current}/{limit} characters",
+    "charLimitExceeded": "CV exceeds 2,500 character limit. Please shorten your content."
 }

@@ -1,10 +1,27 @@
 // Sidebar, CV list, and navigation
 
 import { escapeHtml } from './ui.js';
-import { t } from './i18n.js';
+import { t, getLang } from './i18n.js';
 
 let currentCVId = null;
 let cvs = {};
+
+function formatRelativeTime(timestamp) {
+    const now = Date.now();
+    const diff = now - timestamp;
+    const minutes = Math.floor(diff / (1000 * 60));
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    if (minutes < 1) return t('justNow');
+    if (minutes < 60) return t('minutesAgo', { count: minutes });
+    if (hours < 24) return t('hoursAgo', { count: hours });
+    if (days < 7) return t('daysAgo', { count: days });
+
+    const date = new Date(timestamp);
+    const options = { month: 'short', day: 'numeric' };
+    return date.toLocaleDateString(getLang() === 'fr' ? 'fr-FR' : 'en-US', options);
+}
 
 export function initSidebar(initialCVs) {
     cvs = initialCVs;
@@ -43,9 +60,12 @@ export function renderCVList() {
         `;
 
         const contentHtml = `
-            <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
-                ${checkboxHtml}
-                <span class="cv-name">${escapeHtml(cv.name)}</span>
+            <div class="cv-item-content">
+                <div class="cv-item-main">
+                    ${checkboxHtml}
+                    <span class="cv-name">${escapeHtml(cv.name)}</span>
+                </div>
+                <span class="cv-last-modified">${formatRelativeTime(cv.lastModified)}</span>
             </div>
             <div class="cv-actions">
                 <button class="cv-action-btn" title="${t('rename')}" data-action="rename" data-id="${id}">

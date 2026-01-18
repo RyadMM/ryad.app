@@ -7,11 +7,11 @@ import { updatePreview, checkContentLength } from './preview.js';
 import { downloadPDF } from './pdf.js';
 import { escapeHtml, showRenameModal, closeMobileMenu, toggleMobileMenu, toggleSidebar as uiToggleSidebar, initSidebar as uiInitSidebar, showBatchDeleteModal, hideBatchDeleteModal, showProgressOverlay, hideProgressOverlay, updateProgress } from './ui.js';
 import * as sidebar from './sidebar.js';
-import { toggleCVSelection, selectAll, batchDownloadMD, batchDownloadPDF, batchDelete, getSelectedCVs, clearSelection } from './selection.js';
+import { toggleCVSelection, selectAll, batchDownloadMD, batchDownloadPDF, batchDelete, clearSelection, getSelectedCVs } from './selection.js';
 import { initSwipeGesture, destroySwipeGesture } from './swipe.js';
- 
-let pageBreakMode = 'one-page';
+
 let renamingCVId = null;
+let zoomLevel = 1.0;
 
 const defaultContent = `# Jane Doe
 
@@ -76,7 +76,6 @@ async function init() {
     updateLanguageButtons();
 
     uiInitSidebar();
-    initPageBreakToggle();
 
     const cvs = storage.loadCVs();
     sidebar.initSidebar(cvs);
@@ -86,6 +85,10 @@ async function init() {
 
     setupEventListeners();
     updateViewState();
+
+    setTimeout(() => {
+        applyFitToView();
+    }, 100);
 
     console.log('CV Generator initialized successfully');
 }
@@ -99,7 +102,8 @@ function setupEventListeners() {
     document.getElementById('import-btn').addEventListener('click', handleImport);
     document.getElementById('export-btn').addEventListener('click', handleExport);
     document.getElementById('file-input').addEventListener('change', handleFileImport);
-    document.getElementById('pagebreak-toggle').addEventListener('change', handlePageBreakToggle);
+    document.getElementById('zoom-out-btn').addEventListener('click', handleZoomOut);
+    document.getElementById('zoom-in-btn').addEventListener('click', handleZoomIn);
 
     document.getElementById('sidebar-toggle').addEventListener('click', () => {
         uiToggleSidebar();
@@ -119,6 +123,11 @@ function setupEventListeners() {
     document.getElementById('batch-download-pdf-btn').addEventListener('click', handleBatchDownloadPDF);
     document.getElementById('batch-delete-btn').addEventListener('click', handleShowBatchDeleteModal);
     document.getElementById('progress-cancel').addEventListener('click', handleCancelBatchOperation);
+
+    window.addEventListener('resize', () => {
+        applyFitToView();
+        handleWindowResize();
+    });
 
     setupCVListListeners();
 }
@@ -190,7 +199,73 @@ function handleDownloadPDF() {
     const cv = sidebar.getCurrentCV();
     if (!cv) return;
 
-    downloadPDF(cv, pageBreakMode);
+    if (cv.content.length > 2500) {
+        alert(t('charLimitExceeded'));
+        return;
+    }
+
+    downloadPDF(cv);
+}
+
+function handleZoomOut() {
+    const preview = document.getElementById('preview');
+    if (!preview) return;
+
+    const currentScale = getCurrentZoomScale();
+    const newScale = Math.max(0.3, currentScale - 0.1);
+    setZoomScale(newScale);
+}
+
+function handleZoomIn() {
+    const preview = document.getElementById('preview');
+    if (!preview) return;
+
+    const currentScale = getCurrentZoomScale();
+    const newScale = Math.min(1.5, currentScale + 0.1);
+    setZoomScale(newScale);
+}
+
+function getCurrentZoomScale() {
+    const preview = document.getElementById('preview');
+    if (!preview) return 1.0;
+
+    const transform = preview.style.transform;
+    const match = transform.match(/scale\(([\d.]+)\)/);
+    return match ? parseFloat(match[1]) : 1.0;
+}
+
+function setZoomScale(scale) {
+    const preview = document.getElementById('preview');
+    if (!preview) return;
+
+    zoomLevel = scale;
+
+    const percentage = Math.round(scale * 100);
+    const zoomLevelEl = document.getElementById('zoom-level');
+    if (zoomLevelEl) {
+        zoomLevelEl.textContent = `${percentage}%`;
+    }
+
+    scale = Math.floor(scale * 100) / 100;
+    preview.style.transform = `scale(${scale})`;
+}
+
+function applyFitToView() {
+    const previewWrapper = document.querySelector('.preview-wrapper');
+    const preview = document.getElementById('preview');
+    
+    if (!previewWrapper || !preview) return;
+    
+    const wrapperRect = previewWrapper.getBoundingClientRect();
+    const wrapperWidth = wrapperRect.width - 64;
+    const wrapperHeight = wrapperRect.height - 64;
+    
+    const cvWidth = 8.5 * 96;
+    const cvHeight = 11 * 96;
+    
+    const scale = Math.min(wrapperWidth / cvWidth, wrapperHeight / cvHeight);
+    
+    preview.style.transform = `scale(${scale})`;
 }
 
 function handleImport() {
@@ -227,17 +302,6 @@ function handleFileImport(event) {
     reader.readAsText(file);
 }
 
-function handlePageBreakToggle(e) {
-    pageBreakMode = e.target.checked ? 'auto' : 'one-page';
-    storage.savePageBreakMode(pageBreakMode);
-
-    if (pageBreakMode === 'one-page') {
-        checkContentLength();
-    } else {
-        checkContentLength();
-    }
-}
-
 function handleCreateNewCV() {
     const defaultName = t('noCVs') === 'No CVs yet' ? 'New CV' : 'Nouveau CV';
     sidebar.createCV(defaultName, defaultContent);
@@ -262,7 +326,9 @@ function handleRename(id) {
     renamingCVId = id;
     showRenameModal(cv.name, (newName) => {
         sidebar.renameCV(id, newName);
-        storage.saveCVs(sidebar.getCVs(), sidebar.getCurrentCVId());
+        const updatedCVs = sidebar.getCVs();
+        storage.saveCVs(updatedCVs, sidebar.getCurrentCVId());
+        sidebar.initSidebar(updatedCVs);
         renamingCVId = null;
     }, () => {
         renamingCVId = null;
@@ -276,17 +342,8 @@ function handleDelete(id) {
     }
 }
 
-function handleToggleSelectionMode() {
-    clearSelection();
-}
-
 function handleSelectAll() {
     selectAll(Object.keys(sidebar.getCVs()));
-}
-
-function handleClearSelection() {
-    clearSelection();
-    closeMobileMenu();
 }
 
 function handleBatchDownloadMD() {
@@ -319,11 +376,8 @@ function handleCancelBatchOperation() {
     clearSelection();
 }
 
-function initPageBreakToggle() {
-    pageBreakMode = storage.loadPageBreakMode();
-    const toggle = document.getElementById('pagebreak-toggle');
-    toggle.checked = pageBreakMode === 'auto';
-    checkContentLength();
+function handleWindowResize() {
+    applyFitToView();
 }
 
 function loadCurrentCV() {
@@ -334,6 +388,7 @@ function loadCurrentCV() {
     updatePreview(cv.content);
     checkContentLength();
     updateActiveCVHighlight();
+    applyFitToView();
 }
 
 function updateActiveCVHighlight() {
@@ -351,15 +406,15 @@ function updateViewState() {
 
     if (hasCVs) {
         emptyState.classList.remove('show');
-        if (editorPreviewWrapper) {
+        if (editorPreviewWrapper !== null) {
             editorPreviewWrapper.style.display = 'flex';
         }
-        if (sidebar.getCurrentCVId()) {
+        if (sidebar.getCurrentCVId() !== null) {
             loadCurrentCV();
         }
     } else {
         emptyState.classList.add('show');
-        if (editorPreviewWrapper) {
+        if (editorPreviewWrapper !== null) {
             editorPreviewWrapper.style.display = 'none';
         }
     }

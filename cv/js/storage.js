@@ -54,14 +54,6 @@ export function saveSidebarCollapsed(collapsed) {
     localStorage.setItem('cv-sidebar-collapsed', collapsed);
 }
 
-export function loadPageBreakMode() {
-    return localStorage.getItem('cv-pagebreak-mode') || 'one-page';
-}
-
-export function savePageBreakMode(mode) {
-    localStorage.setItem('cv-pagebreak-mode', mode);
-}
-
 export function extractName(content) {
     const match = content.match(/^#\s+(.+)$/m);
     return match ? match[1].trim().substring(0, 30) : 'Untitled';

@@ -7,14 +7,6 @@
     {
       "source": "/lazy/:match*",
       "destination": "/lazy/:match*"
-    },
-    {
-      "source": "/cv",
-      "destination": "/cv/index.html"
-    },
-    {
-      "source": "/cv/:match*",
-      "destination": "/cv/:match*"
     }
   ]
 }

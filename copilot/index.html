@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot Context Engineering | Ryad</title>
+    <meta name="description" content="Maîtriser le contexte GitHub Copilot - De la théorie à la pratique avec les briques LEGO">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- External Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Module Stylesheets -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/slides.css">
+    <link rel="stylesheet" href="./css/components.css">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Fullscreen Toggle -->
+    <button class="fullscreen-btn" id="fullscreenBtn" title="Mode présentation (F)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+        <span class="ml-2">Présentation</span>
+    </button>
+
+    <!-- Slides Container (populated by JS) -->
+    <div class="slides-container" id="slidesContainer"></div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn" title="Précédent (←)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+        <span class="nav-indicator mono" id="slideIndicator">1 / 9</span>
+        <button class="nav-btn" id="nextBtn" title="Suivant (→)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div class="shortcuts-modal" id="shortcutsModal">
+        <div class="shortcuts-content">
+            <h3 class="text-lg font-semibold mb-4">Raccourcis clavier</h3>
+            <div class="space-y-3 text-sm">
+                <div class="flex justify-between">
+                    <span class="text-zinc-400">Slide suivante</span>
+                    <div class="flex gap-1">
+                        <span class="shortcut-key">→</span>
+                        <span class="shortcut-key">Espace</span>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-zinc-400">Slide précédente</span>
+                    <span class="shortcut-key">←</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-zinc-400">Mode présentation</span>
+                    <span class="shortcut-key">F</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-zinc-400">Quitter fullscreen</span>
+                    <span class="shortcut-key">Esc</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-zinc-400">Afficher aide</span>
+                    <span class="shortcut-key">?</span>
+                </div>
+            </div>
+            <button onclick="toggleShortcuts()" class="mt-6 w-full py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition">
+                Fermer
+            </button>
+        </div>
+    </div>
+
+    <!-- Module Scripts -->
+    <script type="module" src="./js/app.js"></script>
+</body>
+</html>

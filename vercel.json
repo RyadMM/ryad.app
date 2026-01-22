@@ -7,6 +7,14 @@
     {
       "source": "/lazy/:match*",
       "destination": "/lazy/:match*"
+    },
+    {
+      "source": "/copilot",
+      "destination": "/copilot/index.html"
+    },
+    {
+      "source": "/copilot/:match*",
+      "destination": "/copilot/:match*"
     }
   ]
 }

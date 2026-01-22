@@ -1,0 +1,21 @@
+---
+import BaseLayout from './BaseLayout.astro'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description } = Astro.props
+---
+<BaseLayout title={title} description={description}>
+  <div class="presentation-container">
+    <slot />
+  </div>
+</BaseLayout>
+<style>
+  .presentation-container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #0f0f11, #09090b);
+  }
+</style>

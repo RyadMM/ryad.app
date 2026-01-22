@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string
+  description: string
+  href: string
+  accent?: 'orange' | 'indigo'
+}
+
+const { title, description, href, accent = 'orange' } = Astro.props
+
+const accentColors = {
+  orange: 'text-zinc-100 group-hover:text-accent',
+  indigo: 'text-zinc-100 group-hover:text-indigo-400',
+}
+
+const arrowColors = {
+  orange: 'group-hover:text-accent',
+  indigo: 'group-hover:text-indigo-400',
+}
+---
+
+<a href={href} class="card-hover group block">
+  <article class="p-6 md:p-8 rounded-2xl bg-surface border border-zinc-800 subtle-glow">
+    <div class="flex items-start justify-between gap-4">
+      <div class="flex-1">
+        <h3 class={`text-2xl font-medium mb-2 transition-colors ${accentColors[accent]}`}>
+          {title}
+        </h3>
+        <p class="text-muted text-sm md:text-base leading-relaxed">
+          {description}
+        </p>
+      </div>
+      <svg class={`w-5 h-5 text-muted ${arrowColors[accent]} group-hover:translate-x-1 transition-all flex-shrink-0 mt-1`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4 4V4"></path>
+      </svg>
+    </div>
+  </article>
+</a>

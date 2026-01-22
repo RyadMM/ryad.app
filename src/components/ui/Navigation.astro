@@ -1,0 +1,19 @@
+---
+const currentPath = Astro.url.pathname
+---
+<nav class="sticky top-0 z-50 backdrop-blur-md border-b border-zinc-800/50">
+  <div class="max-w-4xl mx-auto px-6 py-4">
+    <a
+      href="/"
+      class:class={currentPath === '/' ? 'text-white' : 'text-zinc-400 hover:text-white'}
+      class="text-lg font-medium transition-colors"
+    >
+      Ryad
+    </a>
+  </div>
+</nav>
+<style>
+  nav {
+    background: rgba(9, 9, 11, 0.8);
+  }
+</style>

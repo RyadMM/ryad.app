@@ -9,30 +9,37 @@ interface Props {
 const { title, description, href, accent = 'orange' } = Astro.props
 
 const accentColors = {
-  orange: 'text-zinc-100 group-hover:text-accent',
-  indigo: 'text-zinc-100 group-hover:text-indigo-400',
-}
-
-const arrowColors = {
-  orange: 'group-hover:text-accent',
-  indigo: 'group-hover:text-indigo-400',
+  orange: 'text-cyan-400 hover:text-cyan-300',
+  indigo: 'text-cyan-400 hover:text-cyan-300',
 }
 ---
 
-<a href={href} class="card-hover group block">
-  <article class="p-6 md:p-8 rounded-2xl bg-surface border border-zinc-800 subtle-glow">
-    <div class="flex items-start justify-between gap-4">
-      <div class="flex-1">
-        <h3 class={`text-2xl font-medium mb-2 transition-colors ${accentColors[accent]}`}>
-          {title}
-        </h3>
-        <p class="text-muted text-sm md:text-base leading-relaxed">
-          {description}
-        </p>
+<a href={href} class="group block h-full">
+  <article class="tron-card rounded-xl p-6 md:p-8 h-full flex flex-col relative overflow-hidden">
+    <!-- Corner decorations -->
+    <div class="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-cyan-500/50 rounded-tl-lg"></div>
+    <div class="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-cyan-500/50 rounded-tr-lg"></div>
+    <div class="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-cyan-500/50 rounded-bl-lg"></div>
+    <div class="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-cyan-500/50 rounded-br-lg"></div>
+
+    <div class="relative h-full flex flex-col">
+      <div class="flex items-start justify-between gap-4 flex-1">
+        <div class="flex-1">
+          <!-- Terminal label -->
+          <div class="terminal-text text-xs mb-3 opacity-50">
+            &gt; ./project --view
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-zinc-100 mb-3 transition-colors {accentColors[accent]}">
+            {title}
+          </h3>
+          <p class="text-cyan-100/50 text-sm md:text-base leading-relaxed">
+            {description}
+          </p>
+        </div>
+        <svg class="w-5 h-5 text-cyan-500/50 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4 4V4"></path>
+        </svg>
       </div>
-      <svg class={`w-5 h-5 text-muted ${arrowColors[accent]} group-hover:translate-x-1 transition-all flex-shrink-0 mt-1`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4 4V4"></path>
-      </svg>
     </div>
   </article>
 </a>

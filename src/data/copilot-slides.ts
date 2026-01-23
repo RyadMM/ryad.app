@@ -11,17 +11,17 @@ export const copilotSlides: Slide[] = [
     title: 'Title / Hook',
     badge: { text: '15-30 min', type: 'accent' },
     content: `
-      <div class="max-w-4xl text-center">
+      <div class="max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full text-center">
         <div class="animate-in">
           <span class="badge badge-accent mb-6">15-30 min</span>
         </div>
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-in delay-1 gradient-text">
+        <h1 class="text-3xl sm:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl lg:text-6xl xl:text-7xl font-bold mb-6 animate-in delay-1 gradient-text">
           L'Art du Contexte
         </h1>
-        <p class="text-xl md:text-2xl text-zinc-400 mb-8 animate-in delay-2 max-w-2xl mx-auto">
-          GitHub Copilot n'est pas intelligent. Il est <span class="text-indigo-400 font-semibold">contextuel</span>.
+        <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-400 mb-8 animate-in delay-2 max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl mx-auto">
+          GitHub Copilot n'est pas intelligent. Il est <span class="text-blue-400 font-semibold">contextuel</span>.
         </p>
-        <p class="text-zinc-500 mb-12 animate-in delay-3 max-w-xl mx-auto">
+        <p class="text-zinc-500 mb-12 animate-in delay-3 max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto">
           La différence entre un utilisateur moyen et un expert ? La maîtrise du contexte.<br>
           Comprendre comment il se construit, se dilue, et comment le contrôler.
         </p>
@@ -46,21 +46,21 @@ export const copilotSlides: Slide[] = [
     title: 'La Fenêtre de Contexte',
     badge: { text: 'Concept 1', type: 'accent' },
     content: `
-      <div class="max-w-6xl w-full">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:gap-16 xl:gap-20 items-center">
           <div>
             <span class="badge badge-accent mb-4 animate-in">Concept 1</span>
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-in delay-1">La Fenêtre de Contexte</h2>
+            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 animate-in delay-1">La Fenêtre de Contexte</h2>
             <p class="text-zinc-400 mb-6 animate-in delay-2">
               Copilot ne connaît pas tout votre projet. Il ne voit que ce qui tient dans sa <strong class="text-white">fenêtre de contexte</strong> — une mémoire limitée (env. 128k tokens).
             </p>
             <div class="space-y-3 text-sm text-zinc-500 animate-in delay-3">
               <p>Ce qui remplit la fenêtre :</p>
               <ul class="space-y-2 ml-4">
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>Fichiers ouverts (onglets visibles)</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>Le fichier actuel (autour du curseur)</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>Historique du chat récent</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>Imports et définitions liées</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Fichiers ouverts (onglets visibles)</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Le fichier actuel (autour du curseur)</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Historique du chat récent</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Imports et définitions liées</li>
               </ul>
             </div>
             <div class="card mt-6 animate-in delay-4">
@@ -97,17 +97,17 @@ export const copilotSlides: Slide[] = [
     title: 'La Dilution du Contexte',
     badge: { text: 'Concept 2', type: 'danger' },
     content: `
-      <div class="max-w-6xl w-full">
+      <div class="max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full w-full">
         <div class="text-center mb-12">
           <span class="badge badge-danger mb-4 animate-in">Concept 2</span>
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 animate-in delay-1">La Dilution du Contexte</h2>
-          <p class="text-zinc-400 max-w-2xl mx-auto animate-in delay-2">
+          <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 animate-in delay-1">La Dilution du Contexte</h2>
+          <p class="text-zinc-400 max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl mx-auto animate-in delay-2">
             Avoir 20 fichiers ouverts n'aide pas Copilot. Cela le <strong>noie</strong>.<br>
             Si le code pertinent représente 10% de la fenêtre, la réponse sera générique ou hallucinatoire.
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:gap-12 xl:gap-16">
           <div class="space-y-4 animate-in delay-1">
             <div class="card scenario-card selected" data-scenario="clean">
               <h4 class="font-semibold mb-2">Scenario A : Focus</h4>
@@ -143,14 +143,14 @@ export const copilotSlides: Slide[] = [
     title: 'Architecture Pipeline',
     badge: { text: 'Architecture', type: 'accent' },
     content: `
-      <div class="max-w-5xl w-full">
+      <div class="max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full w-full">
         <div class="text-center mb-12">
           <span class="badge badge-accent mb-4 animate-in">Architecture</span>
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 animate-in delay-1">Comment Copilot Construit le Contexte</h2>
+          <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 animate-in delay-1">Comment Copilot Construit le Contexte</h2>
         </div>
 
         <div class="card animate-in delay-2">
-          <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center">
+          <div class="flex flex-col md:flex-row lg:justify-between xl:justify-between items-center gap-4 md:gap-6 lg:gap-8 text-center">
             <div class="flex-1">
               <div class="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center mx-auto mb-3">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-400">
@@ -164,7 +164,7 @@ export const copilotSlides: Slide[] = [
             <div class="hidden md:block text-zinc-600">→</div>
             <div class="flex-1">
               <div class="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center mx-auto mb-3">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-indigo-400">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-400">
                   <circle cx="11" cy="11" r="8"/>
                   <path d="m21 21-4.35-4.35"/>
                 </svg>
@@ -175,7 +175,7 @@ export const copilotSlides: Slide[] = [
             <div class="hidden md:block text-zinc-600">→</div>
             <div class="flex-1">
               <div class="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center mx-auto mb-3">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-indigo-400">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-400">
                   <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
                 </svg>
               </div>
@@ -184,7 +184,7 @@ export const copilotSlides: Slide[] = [
             </div>
             <div class="hidden md:block text-zinc-600">→</div>
             <div class="flex-1">
-              <div class="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center mx-auto mb-3">
+              <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center mx-auto mb-3">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white">
                   <path d="M12 8V4H8"/>
                   <rect width="16" height="12" x="4" y="8" rx="2"/>
@@ -209,11 +209,11 @@ export const copilotSlides: Slide[] = [
 
         <div class="grid md:grid-cols-3 gap-4 mt-8">
           <div class="card text-center animate-in delay-3">
-            <p class="text-2xl font-bold text-indigo-400">VSCode</p>
+            <p class="text-2xl font-bold text-blue-400">VSCode</p>
             <p class="text-xs text-zinc-500 mt-2">Plus inclusif par défaut. Inclut tout le workspace avec @workspace.</p>
           </div>
           <div class="card text-center animate-in delay-4">
-            <p class="text-2xl font-bold text-indigo-400">IntelliJ</p>
+            <p class="text-2xl font-bold text-blue-400">IntelliJ</p>
             <p class="text-xs text-zinc-500 mt-2">Plus sélectif. Scope par module, besoin d'être plus explicite.</p>
           </div>
           <div class="card text-center animate-in delay-5">
@@ -229,11 +229,11 @@ export const copilotSlides: Slide[] = [
     title: 'PARTIE 2 - Concept LEGO',
     badge: { text: 'PARTIE 2', type: 'accent' },
     content: `
-      <div class="max-w-5xl w-full">
+      <div class="max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full w-full">
         <div class="text-center mb-12">
           <span class="badge badge-accent mb-4 animate-in">PARTIE 2</span>
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 animate-in delay-1">Les Fichiers Markdown comme <span class="text-indigo-400">"Mémoire LEGO"</span></h2>
-          <p class="text-zinc-400 max-w-2xl mx-auto animate-in delay-2">
+          <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 animate-in delay-1">Les Fichiers Markdown comme <span class="text-blue-400">"Mémoire LEGO"</span></h2>
+          <p class="text-zinc-400 max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl mx-auto animate-in delay-2">
             Créez une mémoire externe persistante que Copilot utilise à chaque interaction.
           </p>
         </div>
@@ -241,21 +241,21 @@ export const copilotSlides: Slide[] = [
         <div class="grid md:grid-cols-4 gap-4 animate-in delay-3">
           <div class="text-center">
             <div class="lego-brick mb-3">
-              <div class="text-xs text-indigo-200 mb-1">BRIQUE 1</div>
+              <div class="text-xs text-blue-200 mb-1">BRIQUE 1</div>
               <div class="font-bold">ARCHITECTURE.md</div>
             </div>
             <p class="text-xs text-zinc-500">Pattern microservices, technologies, décisions</p>
           </div>
           <div class="text-center">
             <div class="lego-brick mb-3">
-              <div class="text-xs text-indigo-200 mb-1">BRIQUE 2</div>
+              <div class="text-xs text-blue-200 mb-1">BRIQUE 2</div>
               <div class="font-bold">PRODUCT.md</div>
             </div>
             <p class="text-xs text-zinc-500">Vision, fonctionnalités, user stories</p>
           </div>
           <div class="text-center">
             <div class="lego-brick mb-3">
-              <div class="text-xs text-indigo-200 mb-1">BRIQUE 3</div>
+              <div class="text-xs text-blue-200 mb-1">BRIQUE 3</div>
               <div class="font-bold">GUIDELINES.md</div>
             </div>
             <p class="text-xs text-zinc-500">Règles de codage, tests, git workflow</p>
@@ -273,19 +273,19 @@ export const copilotSlides: Slide[] = [
           <h4 class="font-semibold mb-4">Pourquoi LEGO ?</h4>
           <div class="grid md:grid-cols-4 gap-4 text-sm">
             <div>
-              <p class="font-semibold text-indigo-400 mb-1">Modulaire</p>
+              <p class="font-semibold text-blue-400 mb-1">Modulaire</p>
               <p class="text-zinc-500">Chaque fichier est autonome</p>
             </div>
             <div>
-              <p class="font-semibold text-indigo-400 mb-1">Assemblable</p>
+              <p class="font-semibold text-blue-400 mb-1">Assemblable</p>
               <p class="text-zinc-500">On combine ce qu'on need</p>
             </div>
             <div>
-              <p class="font-semibold text-indigo-400 mb-1">Réutilisable</p>
+              <p class="font-semibold text-blue-400 mb-1">Réutilisable</p>
               <p class="text-zinc-500">La même brique sert partout</p>
             </div>
             <div>
-              <p class="font-semibold text-indigo-400 mb-1">Extensible</p>
+              <p class="font-semibold text-blue-400 mb-1">Extensible</p>
               <p class="text-zinc-500">On ajoute au fur et à mesure</p>
             </div>
           </div>
@@ -298,10 +298,10 @@ export const copilotSlides: Slide[] = [
     title: 'Mécanisme @mentions',
     badge: { text: 'Mécanisme', type: 'accent' },
     content: `
-      <div class="max-w-5xl w-full">
+      <div class="max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full w-full">
         <div class="text-center mb-12">
           <span class="badge badge-accent mb-4 animate-in">Mécanisme</span>
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 animate-in delay-1">Comment les Briques se Connectent</h2>
+          <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 animate-in delay-1">Comment les Briques se Connectent</h2>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8">
@@ -324,7 +324,7 @@ export const copilotSlides: Slide[] = [
               Copilot suit les liens
             </h4>
             <div class="card">
-              <p class="text-sm text-zinc-400 mb-4">Quand Copilot voit <code class="mono text-indigo-400">@PRODUCT.md</code>, il va lire le fichier et l'inclut dans le contexte.</p>
+              <p class="text-sm text-zinc-400 mb-4">Quand Copilot voit <code class="mono text-blue-400">@PRODUCT.md</code>, il va lire le fichier et l'inclut dans le contexte.</p>
               <div class="flex items-center justify-center gap-2 text-xs text-zinc-500">
                 <span class="badge badge-accent">instructions</span>
                 <span>→</span>
@@ -364,10 +364,10 @@ export const copilotSlides: Slide[] = [
     title: 'Exemple Concret',
     badge: { text: 'Exemple', type: 'accent' },
     content: `
-      <div class="max-w-5xl w-full">
+      <div class="max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full w-full">
         <div class="text-center mb-12">
           <span class="badge badge-accent mb-4 animate-in">Exemple</span>
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 animate-in delay-1">Avant / Après</h2>
+          <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 animate-in delay-1">Avant / Après</h2>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8">
@@ -417,31 +417,31 @@ export const copilotSlides: Slide[] = [
     title: 'Quick Start',
     badge: { text: 'Action', type: 'success' },
     content: `
-      <div class="max-w-4xl w-full">
+      <div class="max-w-full sm:max-w-3xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl 2xl:max-w-full w-full">
         <div class="text-center mb-12">
           <span class="badge badge-success mb-4 animate-in">Action</span>
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 animate-in delay-1">Quick Start — 5 Files, 10 Minutes</h2>
+          <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 animate-in delay-1">Quick Start — 5 Files, 10 Minutes</h2>
         </div>
 
         <div class="space-y-4 animate-in delay-2">
           <div class="card flex items-start gap-4">
-            <span class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-sm font-bold shrink-0">1</span>
+            <span class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-sm font-bold shrink-0">1</span>
             <div>
-              <p class="font-semibold">Créez <code class="mono text-indigo-400">ARCHITECTURE.md</code></p>
+              <p class="font-semibold">Créez <code class="mono text-blue-400">ARCHITECTURE.md</code></p>
               <p class="text-sm text-zinc-500 mt-1">Pattern global, technologies clés, décisions architecturales. Max 2 pages.</p>
             </div>
           </div>
           <div class="card flex items-start gap-4">
-            <span class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-sm font-bold shrink-0">2</span>
+            <span class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-sm font-bold shrink-0">2</span>
             <div>
-              <p class="font-semibold">Créez <code class="mono text-indigo-400">PRODUCT.md</code></p>
+              <p class="font-semibold">Créez <code class="mono text-blue-400">PRODUCT.md</code></p>
               <p class="text-sm text-zinc-500 mt-1">Vision, fonctionnalités principales, user stories. Max 2 pages.</p>
             </div>
           </div>
           <div class="card flex items-start gap-4">
-            <span class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-sm font-bold shrink-0">3</span>
+            <span class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-sm font-bold shrink-0">3</span>
             <div>
-              <p class="font-semibold">Créez <code class="mono text-indigo-400">GUIDELINES.md</code></p>
+              <p class="font-semibold">Créez <code class="mono text-blue-400">GUIDELINES.md</code></p>
               <p class="text-sm text-zinc-500 mt-1">Règles de codage, test requirements, git workflow. Max 1 page.</p>
             </div>
           </div>
@@ -449,7 +449,7 @@ export const copilotSlides: Slide[] = [
             <span class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-sm font-bold shrink-0">4</span>
             <div>
               <p class="font-semibold">Créez <code class="mono text-emerald-400">.github/copilot-instructions.md</code></p>
-              <p class="text-sm text-zinc-500 mt-1">Le chef d'orchestre avec des <code class="text-indigo-400">@mentions</code> vers les 3 fichiers.</p>
+              <p class="text-sm text-zinc-500 mt-1">Le chef d'orchestre avec des <code class="text-blue-400">@mentions</code> vers les 3 fichiers.</p>
             </div>
           </div>
           <div class="card flex items-start gap-4">
@@ -461,8 +461,8 @@ export const copilotSlides: Slide[] = [
           </div>
         </div>
 
-        <div class="mt-8 p-4 bg-indigo-900/20 rounded-xl border border-indigo-800/50 animate-in delay-3">
-          <p class="text-sm text-center text-indigo-300">
+        <div class="mt-8 p-4 bg-blue-900/20 rounded-xl border border-blue-800/50 animate-in delay-3">
+          <p class="text-sm text-center text-blue-300">
             <strong class="text-white">ROI:</strong> 2 heures de setup → gains immédiats et cumulatifs sur chaque interaction.
           </p>
         </div>
@@ -474,8 +474,8 @@ export const copilotSlides: Slide[] = [
     title: 'Conclusion',
     badge: null,
     content: `
-      <div class="max-w-4xl text-center">
-        <h2 class="text-4xl md:text-5xl font-bold mb-8 animate-in gradient-text">
+      <div class="max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full text-center">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-8 animate-in gradient-text">
           Ce qu'il faut retenir
         </h2>
 
@@ -497,7 +497,7 @@ export const copilotSlides: Slide[] = [
           </div>
         </div>
 
-        <div class="card max-w-xl mx-auto animate-in delay-4">
+        <div class="card max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto animate-in delay-4">
           <p class="text-lg text-zinc-300 mb-4">
             "Copilot n'est pas intelligent. Il est contextuel."
           </p>

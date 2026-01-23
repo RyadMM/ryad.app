@@ -1,0 +1,44 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Hero from '@/components/portfolio/Hero.astro'
+import ProjectCard from '@/components/portfolio/ProjectCard.astro'
+import { getLocale, getTranslations, type Locale } from '@/utils/i18n'
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'fr' } }]
+}
+
+const lang = getLocale(Astro.params.lang)
+const t = getTranslations(lang)
+
+const projects = [
+  {
+    title: t.projects.lazy.title,
+    description: t.projects.lazy.description,
+    href: `/${lang}/lazy`,
+    accent: 'orange' as const,
+  },
+  {
+    title: t.projects.copilot.title,
+    description: t.projects.copilot.description,
+    href: `/${lang}/copilot`,
+    accent: 'indigo' as const,
+  },
+]
+---
+<PortfolioLayout title={`Ryad — ${t.hero.name}`} lang={lang}>
+  <div class="max-w-5xl mx-auto px-6 py-20 md:py-32">
+    <Hero t={t} />
+
+    <section class="fade-in fade-in-delay-1">
+      <h2 class="text-sm uppercase tracking-widest text-muted mb-8 font-medium">
+        {t.projects.title}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {projects.map(project => (
+          <ProjectCard {...project} />
+        ))}
+      </div>
+    </section>
+  </div>
+</PortfolioLayout>

@@ -1,0 +1,465 @@
+---
+import PresentationLayout from '@/layouts/PresentationLayout.astro'
+import Slideshow from '@/components/copilot/Slideshow.tsx'
+import { getLocale } from '@/utils/i18n'
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'fr' } }]
+}
+
+const lang = getLocale(Astro.params.lang)
+---
+<PresentationLayout title="Copilot Context Engineering" lang={lang}>
+  <Slideshow client:load />
+</PresentationLayout>
+
+<style is:global>
+  /* Presentation Styles - Professional Theme with Smooth Transitions */
+  .slides-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0); /* Force GPU layer */
+    overflow: hidden;
+    /* Optimize compositing */
+    will-change: transform;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Mobile: minimal padding */
+    padding: 1rem;
+    opacity: 0;
+    /* Use translate3d for GPU acceleration */
+    transform: translate3d(100px, 0, 0);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+    pointer-events: none;
+    /* Prevent subpixel rendering issues */
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Responsive slide padding */
+  @media (min-width: 768px) {
+    .slide {
+      padding: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .slide {
+      padding: 3rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .slide {
+      padding: 4rem;
+    }
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    pointer-events: auto;
+  }
+
+  .slide.prev {
+    opacity: 0;
+    transform: translate3d(-100px, 0, 0);
+  }
+
+  /* Responsive slide content - use available width */
+  .slide-content {
+    width: 100%;
+    /* Mobile: use most of screen */
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .slide-content {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .slide-content {
+      /* Tablet: reasonable constraint */
+      max-width: 95%;
+      padding: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .slide-content {
+      /* Desktop: use more width */
+      max-width: 95%;
+      padding: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .slide-content {
+      /* Large desktop: use most available space */
+      max-width: 98%;
+      padding: 3rem;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .slide-content {
+      /* Very large screens: nearly full width */
+      max-width: 1920px;
+      padding: 3.5rem;
+    }
+  }
+
+  .slide-content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .slide-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .slide-content::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.3);
+    border-radius: 3px;
+  }
+
+  /* Responsive chart containers */
+  .chart-container {
+    position: relative;
+    /* Mobile base */
+    height: 180px;
+    min-height: 150px;
+  }
+
+  @media (min-width: 640px) {
+    .chart-container {
+      height: 220px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .chart-container {
+      height: 280px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .chart-container {
+      height: 350px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .chart-container {
+      height: 400px;
+    }
+  }
+
+  /* Progress Bar - Professional blue */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--color-accent), var(--color-accent-hover));
+    transition: width 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+  }
+
+  /* Fullscreen Button - Responsive */
+  .fullscreen-btn {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    background: var(--color-surface);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    color: var(--color-text-primary);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 1000;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Hide text on mobile */
+  @media (max-width: 639px) {
+    .fullscreen-btn span {
+      display: none;
+    }
+    .fullscreen-btn {
+      padding: 0.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .fullscreen-btn {
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  .fullscreen-btn:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    color: var(--color-text-primary);
+  }
+
+  /* Navigation Controls - Responsive */
+  .nav-controls {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.25rem;
+    background: var(--color-surface);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (min-width: 768px) {
+    .nav-controls {
+      bottom: 2rem;
+      gap: 1rem;
+      padding: 0.75rem 1.5rem;
+    }
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Slightly smaller on mobile */
+    width: 2.25rem;
+    height: 2.25rem;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+  }
+
+  @media (min-width: 768px) {
+    .nav-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+
+  .nav-btn:hover:not(:disabled) {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: var(--color-border);
+  }
+
+  .nav-indicator {
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    min-width: 2.75rem;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media (min-width: 768px) {
+    .nav-indicator {
+      font-size: 0.875rem;
+      min-width: 3rem;
+    }
+  }
+
+  /* Shortcuts Modal - Professional style */
+  .shortcuts-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+  }
+
+  .shortcuts-content {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Badge Styles - Professional colors */
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-accent {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--color-accent);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  .badge-danger {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--color-danger);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  .badge-success {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--color-success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  /* Card Styles - Professional style */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Code Block - Professional terminal style */
+  .code-block {
+    background: #0a0a0a;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    line-height: 1.6;
+  }
+
+  .comment { color: #52525b; }
+  .keyword { color: var(--color-accent); }
+  .function { color: var(--color-accent-hover); }
+  .variable { color: var(--color-accent); }
+  .string { color: var(--color-success); }
+
+  /* LEGO Brick - Professional style */
+  .lego-brick {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  }
+
+  .lego-brick.emerald {
+    background: linear-gradient(135deg, var(--color-success) 0%, #10b981 100%);
+  }
+
+  /* Shortcut Key - Professional terminal style */
+  .shortcut-key {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--color-accent);
+  }
+
+  /* Animations */
+  .animate-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Gradient Text - Professional blue */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Scenario Cards - Professional interactive style */
+  .scenario-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .scenario-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .scenario-card.selected {
+    border-color: var(--color-accent);
+    background: rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+  }
+
+  /* Mono Font */
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>

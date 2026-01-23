@@ -12,6 +12,7 @@ export default defineConfig({
   vite: {
     build: {
       cssMinify: true,
+      minify: 'esbuild',
     },
     resolve: {
       alias: {
@@ -19,4 +20,5 @@ export default defineConfig({
       },
     },
   },
+  compressHTML: true,
 })

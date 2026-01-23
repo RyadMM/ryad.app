@@ -2,15 +2,17 @@
 interface Props {
   title: string
   description?: string
+  lang?: string
 }
 
 const {
   title,
-  description = 'Minimal portfolio and projects by Ryad'
+  description = 'Minimal portfolio and projects by Ryad',
+  lang = 'en'
 } = Astro.props
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -22,10 +24,14 @@ const {
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   </head>
   <body>
-    <slot />
+    <div class="tron-grid"></div>
+    <div class="scanlines"></div>
+    <div class="relative z-10">
+      <slot />
+    </div>
   </body>
 </html>
 <style is:global>

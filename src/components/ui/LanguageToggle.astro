@@ -1,0 +1,23 @@
+---
+interface Props {
+  currentLang: 'en' | 'fr'
+}
+
+const { currentLang } = Astro.props
+const otherLang = currentLang === 'en' ? 'fr' : 'en'
+---
+
+<button id="lang-toggle" class="terminal-text px-4 py-2 rounded border border-cyan-500/30 hover:border-cyan-500/60 hover:bg-cyan-500/10 transition-all text-cyan-400 hover:text-cyan-300 text-xs" aria-label="Switch language">
+  <span class="opacity-50">&gt;</span>
+  <span class="ml-2">LANG: {otherLang === 'en' ? 'EN' : 'FR'}</span>
+</button>
+
+<script define:vars={{ otherLang }}>
+  const toggle = document.getElementById('lang-toggle')
+  toggle?.addEventListener('click', () => {
+    localStorage.setItem('locale', otherLang)
+    const currentPath = window.location.pathname.replace(/\/$/, '') + '/'
+    const newPath = currentPath.replace(/^\/(en|fr)\//, `/${otherLang}/`)
+    window.location.href = newPath
+  })
+</script>

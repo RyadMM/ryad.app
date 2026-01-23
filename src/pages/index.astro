@@ -1,42 +1,36 @@
 ---
-import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
-import Hero from '@/components/portfolio/Hero.astro'
-import ProjectCard from '@/components/portfolio/ProjectCard.astro'
-
-const projects = [
-  {
-    title: 'Lazy',
-    description: 'Le Guide du Paresseux Organisé — A thoughtful approach to productivity and organized laziness.',
-    href: '/lazy',
-    accent: 'orange' as const,
-  },
-  {
-    title: 'Copilot Context Engineering',
-    description: 'Maîtriser le contexte GitHub Copilot — De la théorie à la pratique avec les briques LEGO.',
-    href: '/copilot',
-    accent: 'indigo' as const,
-  },
-]
+// Redirect to appropriate language based on browser preference or stored selection
 ---
-<PortfolioLayout title="Ryad — Creative Developer">
-  <div class="max-w-4xl mx-auto px-6 py-20 md:py-32">
-    <Hero />
 
-    <section class="fade-in fade-in-delay-1">
-      <h2 class="text-sm uppercase tracking-widest text-muted mb-8 font-medium">Projects</h2>
-      <div class="space-y-4">
-        {projects.map(project => (
-          <ProjectCard {...project} />
-        ))}
-
-        <!-- Coming soon placeholder -->
-        <article class="p-6 md:p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800/50">
-          <div class="flex items-center gap-3 text-muted text-sm">
-            <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-            <span>More projects coming soon</span>
-          </div>
-        </article>
-      </div>
-    </section>
-  </div>
-</PortfolioLayout>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Ryad</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #09090b;
+        color: #a1a1aa;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+    </style>
+    <script>
+      // Check localStorage for saved preference
+      const stored = localStorage.getItem('locale')
+      const lang = (stored === 'en' || stored === 'fr') ? stored : navigator.language.startsWith('fr') ? 'fr' : 'en'
+      window.location.href = '/' + lang + '/'
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0;url=/en/" />
+    </noscript>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>

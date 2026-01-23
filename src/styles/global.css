@@ -4,29 +4,148 @@
 
 @layer base {
   body {
-    @apply bg-background text-zinc-100 antialiased;
+    @apply bg-[#050508] text-cyan-50 antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "liga" 1, "calt" 1;
+    overflow-x: hidden;
   }
 
   * {
-    @apply border-zinc-800;
+    @apply border-cyan-900/30;
+  }
+
+  /* Professional presentation color palette */
+  :root {
+    --color-bg: #0a0a0a;
+    --color-surface: #1a1a1a;
+    --color-border: #333333;
+    --color-text-primary: #e5e5e5;
+    --color-text-secondary: #a3a3a3;
+    --color-accent: #3b82f6;
+    --color-accent-hover: #60a5fa;
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+    --color-chart-grid: #27272a;
+    --color-chart-ticks: #71717a;
+  }
+
+  /* 3D Tron Grid Background */
+  .tron-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      linear-gradient(180deg, transparent 0%, rgba(0, 240, 255, 0.03) 50%, transparent 100%),
+      linear-gradient(0deg, #050508 0%, #0a0a12 100%);
+    perspective: 1000px;
+    perspective-origin: 50% 50%;
+  }
+
+  .tron-grid::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image:
+      linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: rotateX(75deg);
+    animation: gridMove 20s linear infinite;
+  }
+
+  .tron-grid::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #050508 0%, transparent 30%, transparent 70%, #050508 100%);
+  }
+
+  @keyframes gridMove {
+    0% { transform: rotateX(75deg) translateY(0); }
+    100% { transform: rotateX(75deg) translateY(60px); }
+  }
+
+  /* Scanline effect */
+  .scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.1) 0px,
+      rgba(0, 0, 0, 0.1) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    opacity: 0.3;
   }
 }
 
 @layer components {
   .gradient-text {
-    @apply bg-gradient-to-br from-zinc-100 to-zinc-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-br from-cyan-300 to-cyan-500 bg-clip-text text-transparent;
+    text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
   }
 
-  .card-hover {
-    @apply transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-2xl;
+  .tron-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.05) 0%, rgba(0, 168, 255, 0.02) 100%);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
   }
 
-  .subtle-glow {
-    box-shadow: 0 0 60px -12px rgba(249, 115, 22, 0.1);
+  .tron-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.3), transparent, rgba(0, 240, 255, 0.1));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .tron-card:hover::before {
+    opacity: 1;
+  }
+
+  .tron-card:hover {
+    border-color: rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.15), inset 0 0 20px rgba(0, 240, 255, 0.05);
+    transform: translateY(-4px);
+  }
+
+  .tron-glow {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.4);
+  }
+
+  .terminal-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(0, 240, 255, 0.6);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
   .fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+    animation: fadeIn 0.6s ease-out forwards;
     opacity: 0;
   }
 
@@ -37,11 +156,21 @@
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(16px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -1,0 +1,44 @@
+{
+  "en": {
+    "hero": {
+      "greeting": "Hi, I'm",
+      "name": "Ryad",
+      "bio": "Building minimal, thoughtful digital experiences."
+    },
+    "projects": {
+      "title": "Projects",
+      "lazy": {
+        "title": "Lazy",
+        "description": "The Organized Lazy's Guide — A thoughtful approach to productivity."
+      },
+      "copilot": {
+        "title": "Copilot Context Engineering",
+        "description": "Mastering GitHub Copilot context — From theory to practice."
+      }
+    },
+    "footer": {
+      "email": "Get in touch"
+    }
+  },
+  "fr": {
+    "hero": {
+      "greeting": "Salut, je suis",
+      "name": "Ryad",
+      "bio": "Créer des expériences numériques minimales et réfléchies."
+    },
+    "projects": {
+      "title": "Projets",
+      "lazy": {
+        "title": "Lazy",
+        "description": "Le Guide du Paresseux Organisé — Une approche réfléchie de la productivité."
+      },
+      "copilot": {
+        "title": "Copilot Context Engineering",
+        "description": "Maîtriser le contexte GitHub Copilot — De la théorie à la pratique."
+      }
+    },
+    "footer": {
+      "email": "Me contacter"
+    }
+  }
+}

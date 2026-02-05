@@ -1,0 +1,65 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import Navigation from '@/components/ui/Navigation.astro'
+import Footer from '@/components/ui/Footer.astro'
+
+interface Props {
+  title: string
+  description?: string
+  lang?: 'en' | 'fr'
+}
+
+const {
+  title,
+  description = 'Context Engineering for AI-Assisted Development',
+  lang = 'en'
+} = Astro.props
+---
+
+<BaseLayout title={title} description={description} lang={lang}>
+  <Navigation currentLang={lang} />
+  <article class="blog-article">
+    <div class="blog-sidebar">
+      <slot name="toc" />
+    </div>
+    <div class="blog-content">
+      <slot />
+    </div>
+  </article>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .blog-article {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+
+  .blog-sidebar {
+    position: sticky;
+    top: 6rem;
+    height: fit-content;
+    order: 2;
+  }
+
+  .blog-content {
+    max-width: 720px;
+    order: 1;
+  }
+
+  @media (max-width: 1024px) {
+    .blog-article {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+
+    .blog-sidebar {
+      display: none;
+    }
+  }
+</style>

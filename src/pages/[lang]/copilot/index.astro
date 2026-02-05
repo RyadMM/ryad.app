@@ -1,6 +1,9 @@
 ---
-import PresentationLayout from '@/layouts/PresentationLayout.astro'
-import Slideshow from '@/components/copilot/Slideshow.tsx'
+import BlogLayout from '@/layouts/BlogLayout.astro'
+import Article from '@/components/copilot/Article.tsx'
+import TableOfContents from '@/components/copilot/TableOfContents'
+import { copilotArticleSections } from '@/data/copilot-article'
+import { copilotArticleSectionsFR } from '@/data/copilot-article.fr'
 import { getLocale } from '@/utils/i18n'
 
 export function getStaticPaths() {
@@ -8,10 +11,19 @@ export function getStaticPaths() {
 }
 
 const lang = getLocale(Astro.params.lang)
+const title = lang === 'fr'
+  ? 'Context Engineering pour le Développement Assisté par IA'
+  : 'Context Engineering for AI-Assisted Development'
+const description = lang === 'fr'
+  ? 'Maîtriser le contexte GitHub Copilot — De la théorie à la pratique.'
+  : 'Mastering GitHub Copilot context — From theory to practice.'
+
+const articleSections = lang === 'fr' ? copilotArticleSectionsFR : copilotArticleSections
 ---
-<PresentationLayout title="Copilot Context Engineering" lang={lang}>
-  <Slideshow client:load />
-</PresentationLayout>
+<BlogLayout title={title} description={description} lang={lang}>
+  <TableOfContents client:load sections={articleSections} slot="toc" />
+  <Article client:load lang={lang} sections={articleSections} />
+</BlogLayout>
 
 <style is:global>
   /* Presentation Styles - Professional Theme with Smooth Transitions */
@@ -461,5 +473,280 @@ const lang = getLocale(Astro.params.lang)
   /* Mono Font */
   .mono {
     font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ========================================
+     Article Mode Styles
+     ======================================== */
+
+  .article-mode {
+    position: relative;
+  }
+
+  .sections-container {
+    padding: 2rem 0;
+  }
+
+  /* Table of Contents */
+  .table-of-contents {
+    padding: 1.5rem 0;
+  }
+
+  .table-of-contents h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .table-of-contents ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .table-of-contents li {
+    margin-bottom: 0.5rem;
+  }
+
+  .table-of-contents a {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+    border-left: 2px solid transparent;
+    padding-left: 1rem;
+  }
+
+  .table-of-contents a:hover {
+    color: var(--color-accent);
+  }
+
+  .table-of-contents a.active {
+    color: var(--color-accent);
+    border-left-color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  /* Article Sections */
+  .article-section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 6rem;
+  }
+
+  .article-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
+  }
+
+  .prose-content p {
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
+  }
+
+  .prose-content strong {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .prose-content em {
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+
+  .prose-content ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .prose-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+  }
+
+  /* Chart Wrapper */
+  .chart-wrapper {
+    margin: 2rem 0;
+  }
+
+  .chart-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    background: var(--color-surface);
+    border: 1px dashed var(--color-border);
+    border-radius: 0.5rem;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  /* Presentation Toggle Button */
+  .presentation-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    z-index: 1000;
+    transition: all 0.2s ease;
+  }
+
+  .presentation-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(59, 130, 246, 0.5);
+  }
+
+  @media (max-width: 639px) {
+    .presentation-toggle span {
+      display: none;
+    }
+    .presentation-toggle {
+      padding: 0.75rem;
+      border-radius: 50%;
+    }
+  }
+
+  /* Presentation Mode Placeholder */
+  .presentation-mode {
+    position: fixed;
+    inset: 0;
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .presentation-placeholder {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .presentation-placeholder p {
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .article-section h2 {
+      font-size: 1.5rem;
+    }
+
+    .sections-container {
+      padding: 1rem 0;
+    }
+  }
+
+  /* ========================================
+     Chart Controls Styles
+     ======================================== */
+
+  .chart-controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .chart-controls button {
+    padding: 0.5rem 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+  }
+
+  .chart-controls button:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--color-accent);
+  }
+
+  .chart-controls button.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: white;
+  }
+
+  .chart-controls button.success {
+    border-color: rgba(16, 185, 129, 0.3);
+    color: var(--color-success);
+  }
+
+  .chart-controls button.success:hover {
+    background: rgba(16, 185, 129, 0.1);
+  }
+
+  .chart-controls button.danger {
+    border-color: rgba(239, 68, 68, 0.3);
+    color: var(--color-danger);
+  }
+
+  .chart-controls button.danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+  }
+
+  .chart-status {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+
+  /* Input range slider */
+  input[type="range"] {
+    width: 100%;
+    margin: 1rem 0;
+    height: 6px;
+    background: var(--color-surface);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+  }
+
+  .slider-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
   }
 </style>

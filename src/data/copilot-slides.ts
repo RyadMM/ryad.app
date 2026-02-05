@@ -47,46 +47,67 @@ export const copilotSlides: Slide[] = [
     badge: { text: 'Concept 1', type: 'accent' },
     content: `
       <div class="max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full w-full">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:gap-16 xl:gap-20 items-center">
-          <div>
-            <span class="badge badge-accent mb-4 animate-in">Concept 1</span>
-            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 animate-in delay-1">La Fenêtre de Contexte</h2>
-            <p class="text-zinc-400 mb-6 animate-in delay-2">
-              Copilot ne connaît pas tout votre projet. Il ne voit que ce qui tient dans sa <strong class="text-white">fenêtre de contexte</strong> — une mémoire limitée (env. 128k tokens).
-            </p>
-            <div class="space-y-3 text-sm text-zinc-500 animate-in delay-3">
-              <p>Ce qui remplit la fenêtre :</p>
-              <ul class="space-y-2 ml-4">
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Fichiers ouverts (onglets visibles)</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Le fichier actuel (autour du curseur)</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Historique du chat récent</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Imports et définitions liées</li>
-              </ul>
-            </div>
-            <div class="card mt-6 animate-in delay-4">
-              <p class="text-sm text-zinc-400 mb-4">Simulateur : Ajoutez des éléments pour voir l'impact</p>
-              <div class="flex flex-wrap gap-2">
-                <button data-action="addSmall" class="context-btn px-3 py-1.5 text-sm bg-zinc-800 hover:bg-zinc-700 rounded-lg transition">
-                  + Petit fichier (5%)
-                </button>
-                <button data-action="addLarge" class="context-btn px-3 py-1.5 text-sm bg-zinc-800 hover:bg-zinc-700 rounded-lg transition">
-                  + Gros module (30%)
-                </button>
-                <button data-action="addChat" class="context-btn px-3 py-1.5 text-sm bg-zinc-800 hover:bg-zinc-700 rounded-lg transition">
-                  + Chat history (15%)
-                </button>
-                <button data-action="reset" class="context-btn px-3 py-1.5 text-sm bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded-lg transition">
-                  Reset
-                </button>
-              </div>
-            </div>
-          </div>
+        <!-- Header Section -->
+        <div class="text-center mb-8">
+          <span class="badge badge-accent mb-4 animate-in">Concept 1</span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 animate-in delay-1">La Fenêtre de Contexte</h2>
+          <p class="text-base sm:text-lg md:text-xl text-zinc-400 max-w-4xl mx-auto animate-in delay-2">
+            Copilot ne connaît pas tout votre projet. Il ne voit que ce qui tient dans sa <strong class="text-white">fenêtre de contexte</strong> — une mémoire limitée (~128k tokens).
+          </p>
+        </div>
+
+        <!-- Main Content: 3-column layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <!-- Left Column: What fills the window -->
           <div class="card animate-in delay-2">
-            <h3 class="text-lg font-semibold mb-4 text-center">Occupation de la fenêtre</h3>
-            <div class="chart-container" style="position: relative; height: 250px;">
+            <h3 class="text-lg font-semibold mb-4 text-blue-400">Ce qui remplit la fenêtre</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="w-2 h-2 rounded-full bg-blue-500 mt-2 flex-shrink-0"></span>
+                <span class="text-sm text-zinc-300">Fichiers ouverts (onglets visibles)</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-2 h-2 rounded-full bg-blue-500 mt-2 flex-shrink-0"></span>
+                <span class="text-sm text-zinc-300">Le fichier actuel (autour du curseur)</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-2 h-2 rounded-full bg-blue-500 mt-2 flex-shrink-0"></span>
+                <span class="text-sm text-zinc-300">Historique du chat récent</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-2 h-2 rounded-full bg-blue-500 mt-2 flex-shrink-0"></span>
+                <span class="text-sm text-zinc-300">Imports et définitions liées</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Center Column: Interactive Chart -->
+          <div class="card animate-in delay-3">
+            <h3 class="text-lg font-semibold mb-2 text-center">Occupation de la fenêtre</h3>
+            <div class="chart-container mb-4" style="position: relative; height: 280px;">
               <div id="contextChartMount"></div>
             </div>
-            <p id="contextStatus" class="text-center text-sm mt-4 text-emerald-400 mono">État : Optimal</p>
+            <p id="contextStatus" class="text-center text-sm text-emerald-400 mono">État : Optimal</p>
+          </div>
+
+          <!-- Right Column: Simulator -->
+          <div class="card animate-in delay-4">
+            <h3 class="text-lg font-semibold mb-4 text-emerald-400">Simulateur interactif</h3>
+            <p class="text-sm text-zinc-400 mb-4">Ajoutez des éléments pour voir l'impact sur la fenêtre</p>
+            <div class="space-y-2">
+              <button data-action="addSmall" class="context-btn w-full px-4 py-2.5 text-sm bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg transition text-left">
+                <span class="text-emerald-400">+</span> Petit fichier (5%)
+              </button>
+              <button data-action="addLarge" class="context-btn w-full px-4 py-2.5 text-sm bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg transition text-left">
+                <span class="text-amber-400">+</span> Gros module (30%)
+              </button>
+              <button data-action="addChat" class="context-btn w-full px-4 py-2.5 text-sm bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg transition text-left">
+                <span class="text-blue-400">+</span> Chat history (15%)
+              </button>
+              <button data-action="reset" class="context-btn w-full px-4 py-2.5 text-sm bg-red-900/30 hover:bg-red-900/50 text-red-400 border border-red-900/50 rounded-lg transition mt-4">
+                ↻ Reset
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -98,41 +119,66 @@ export const copilotSlides: Slide[] = [
     badge: { text: 'Concept 2', type: 'danger' },
     content: `
       <div class="max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full w-full">
-        <div class="text-center mb-12">
+        <!-- Header Section -->
+        <div class="text-center mb-8">
           <span class="badge badge-danger mb-4 animate-in">Concept 2</span>
-          <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 animate-in delay-1">La Dilution du Contexte</h2>
-          <p class="text-zinc-400 max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl mx-auto animate-in delay-2">
-            Avoir 20 fichiers ouverts n'aide pas Copilot. Cela le <strong>noie</strong>.<br>
-            Si le code pertinent représente 10% de la fenêtre, la réponse sera générique ou hallucinatoire.
+          <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 animate-in delay-1">La Dilution du Contexte</h2>
+          <p class="text-base sm:text-lg md:text-xl text-zinc-400 max-w-4xl mx-auto animate-in delay-2">
+            Avoir 20 fichiers ouverts n'aide pas Copilot. Cela le <strong class="text-white">noie</strong>. Si le code pertinent ne représente que <span class="text-red-400 font-semibold">10%</span> de la fenêtre, la réponse sera générique ou hallucinatoire.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:gap-12 xl:gap-16">
-          <div class="space-y-4 animate-in delay-1">
-            <div class="card scenario-card selected" data-scenario="clean">
-              <h4 class="font-semibold mb-2">Scenario A : Focus</h4>
-              <p class="text-sm text-zinc-500">2 fichiers ouverts. Question précise. Contexte Markdown présent.</p>
-              <div class="mt-3">
+        <!-- Main Content: 2-column layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+          <!-- Left Column: Scenario Selection -->
+          <div class="space-y-4 animate-in delay-2">
+            <div class="card scenario-card selected cursor-pointer transition-all hover:border-red-500/50" data-scenario="clean">
+              <div class="flex items-start justify-between mb-3">
+                <h4 class="font-semibold text-lg">Scenario A : Focus</h4>
                 <span class="badge badge-success">Signal fort</span>
               </div>
+              <p class="text-sm text-zinc-400 mb-3">
+                2 fichiers ouverts. Question précise. Contexte Markdown présent.
+              </p>
+              <div class="flex items-center gap-2 text-xs text-zinc-500">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>Signal pertinent: <strong class="text-emerald-400">85%</strong></span>
+              </div>
             </div>
-            <div class="card scenario-card" data-scenario="noise">
-              <h4 class="font-semibold mb-2">Scenario B : Chaos</h4>
-              <p class="text-sm text-zinc-500">15 onglets ouverts (vieux logs, configs). Question vague. Chat long.</p>
-              <div class="mt-3">
+
+            <div class="card scenario-card cursor-pointer transition-all hover:border-red-500/50" data-scenario="noise">
+              <div class="flex items-start justify-between mb-3">
+                <h4 class="font-semibold text-lg">Scenario B : Chaos</h4>
                 <span class="badge badge-danger">Bruit élevé</span>
               </div>
+              <p class="text-sm text-zinc-400 mb-3">
+                15 onglets ouverts (vieux logs, configs). Question vague. Chat long.
+              </p>
+              <div class="flex items-center gap-2 text-xs text-zinc-500">
+                <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                <span>Signal pertinent: <strong class="text-red-400">25%</strong></span>
+              </div>
+            </div>
+
+            <!-- Key Insight Box -->
+            <div class="card bg-blue-900/20 border-blue-500/30">
+              <p class="text-sm text-blue-200">
+                <strong class="text-blue-400">💡 Insight :</strong> La qualité des réponses dépend du <strong>ratio signal/bruit</strong>, pas de la quantité totale de contexte.
+              </p>
             </div>
           </div>
 
-          <div class="md:col-span-2 card animate-in delay-2">
-            <h3 class="text-lg font-semibold mb-4 text-center">Impact sur la qualité</h3>
-            <div class="chart-container" style="position: relative; height: 250px;">
+          <!-- Right Column: Chart + Result -->
+          <div class="card animate-in delay-3">
+            <h3 class="text-lg font-semibold mb-2 text-center">Impact sur la qualité</h3>
+            <div class="chart-container mb-4" style="position: relative; height: 320px;">
               <div id="dilutionChartMount"></div>
             </div>
-            <p id="dilutionMessage" class="mt-4 p-3 bg-emerald-900/20 text-emerald-400 rounded-lg text-sm text-center">
-              <strong>Résultat :</strong> Copilot comprend exactement ce que vous voulez. Le code généré utilise les bonnes variables et respecte le style.
-            </p>
+            <div id="dilutionMessage" class="p-4 bg-emerald-900/20 border border-emerald-500/30 rounded-lg">
+              <p class="text-sm text-emerald-300 text-center">
+                <strong class="text-emerald-400">Résultat :</strong> Copilot comprend exactement ce que vous voulez. Le code généré utilise les bonnes variables et respecte le style du projet.
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -100,26 +100,26 @@
 @layer components {
   .gradient-text {
     @apply bg-gradient-to-br from-cyan-300 to-cyan-500 bg-clip-text text-transparent;
-    text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+    text-shadow: 0 0 40px rgba(0, 240, 255, 0.4);
   }
 
   .tron-card {
     position: relative;
-    background: linear-gradient(135deg, rgba(0, 240, 255, 0.05) 0%, rgba(0, 168, 255, 0.02) 100%);
-    border: 1px solid rgba(0, 240, 255, 0.2);
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.04) 0%, rgba(0, 168, 255, 0.02) 100%);
+    border: 1px solid rgba(0, 240, 255, 0.15);
     backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .tron-card::before {
     content: '';
     position: absolute;
     inset: -1px;
-    background: linear-gradient(135deg, rgba(0, 240, 255, 0.3), transparent, rgba(0, 240, 255, 0.1));
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), transparent, rgba(0, 240, 255, 0.08));
     border-radius: inherit;
     z-index: -1;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .tron-card:hover::before {
@@ -127,25 +127,25 @@
   }
 
   .tron-card:hover {
-    border-color: rgba(0, 240, 255, 0.4);
-    box-shadow: 0 0 40px rgba(0, 240, 255, 0.15), inset 0 0 20px rgba(0, 240, 255, 0.05);
-    transform: translateY(-4px);
+    border-color: rgba(0, 240, 255, 0.35);
+    box-shadow: 0 0 50px rgba(0, 240, 255, 0.12), inset 0 0 30px rgba(0, 240, 255, 0.04);
+    transform: translateY(-3px);
   }
 
   .tron-glow {
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.4);
+    text-shadow: 0 0 15px rgba(0, 240, 255, 0.7), 0 0 30px rgba(0, 240, 255, 0.35);
   }
 
   .terminal-text {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    color: rgba(0, 240, 255, 0.6);
+    color: rgba(0, 240, 255, 0.5);
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
   .fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
+    animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     opacity: 0;
   }
 
@@ -156,7 +156,7 @@
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(16px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;

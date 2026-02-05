@@ -15,6 +15,13 @@ export default function ContextChart({ value }: ContextChartProps) {
     const ctx = canvasRef.current.getContext('2d')
     if (!ctx) return
 
+    // Dark mode optimized colors - more vibrant
+    const getBarColor = (val: number) => {
+      if (val > 80) return { bg: 'rgba(239, 68, 68, 0.7)', border: '#f87171' } // red
+      if (val > 50) return { bg: 'rgba(245, 158, 11, 0.7)', border: '#fbbf24' } // amber
+      return { bg: 'rgba(16, 185, 129, 0.7)', border: '#34d399' } // emerald
+    }
+
     chartRef.current = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -22,10 +29,10 @@ export default function ContextChart({ value }: ContextChartProps) {
         datasets: [{
           label: 'Occupation',
           data: [value],
-          backgroundColor: 'var(--color-success)',
-          borderColor: 'var(--color-success)',
-          borderWidth: 1,
-          borderRadius: 4,
+          backgroundColor: getBarColor(value).bg,
+          borderColor: getBarColor(value).border,
+          borderWidth: 2,
+          borderRadius: 6,
         }]
       },
       options: {
@@ -39,9 +46,13 @@ export default function ContextChart({ value }: ContextChartProps) {
             min: 0, max: 100,
             ticks: {
               callback: (v) => v + '%',
-              color: 'var(--color-chart-ticks)'
+              color: '#a3a3a3',
+              font: { size: 13, weight: '500' }
             },
-            grid: { color: 'var(--color-chart-grid)' }
+            grid: {
+              color: '#333333',
+              drawBorder: false
+            }
           },
           y: { display: false }
         }
@@ -62,14 +73,15 @@ export default function ContextChart({ value }: ContextChartProps) {
     dataset.data = [value]
 
     // Update color based on value
-    const colorVar = value > 80
-      ? 'var(--color-danger)'
-      : value > 50
-        ? 'var(--color-warning)'
-        : 'var(--color-success)'
+    const getBarColor = (val: number) => {
+      if (val > 80) return { bg: 'rgba(239, 68, 68, 0.7)', border: '#f87171' } // red
+      if (val > 50) return { bg: 'rgba(245, 158, 11, 0.7)', border: '#fbbf24' } // amber
+      return { bg: 'rgba(16, 185, 129, 0.7)', border: '#34d399' } // emerald
+    }
 
-    dataset.backgroundColor = colorVar
-    dataset.borderColor = colorVar
+    const colors = getBarColor(value)
+    dataset.backgroundColor = colors.bg
+    dataset.borderColor = colors.border
 
     chart.update('none') // 'none' mode = no animation for smooth updates
   }, [value])

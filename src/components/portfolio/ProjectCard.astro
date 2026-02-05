@@ -15,28 +15,28 @@ const accentColors = {
 ---
 
 <a href={href} class="group block h-full">
-  <article class="tron-card rounded-xl p-6 md:p-8 h-full flex flex-col relative overflow-hidden">
+  <article class="tron-card rounded-xl p-7 md:p-9 h-full flex flex-col relative overflow-hidden">
     <!-- Corner decorations -->
-    <div class="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-cyan-500/50 rounded-tl-lg"></div>
-    <div class="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-cyan-500/50 rounded-tr-lg"></div>
-    <div class="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-cyan-500/50 rounded-bl-lg"></div>
-    <div class="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-cyan-500/50 rounded-br-lg"></div>
+    <div class="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-cyan-500/40 rounded-tl-lg transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-cyan-500/60"></div>
+    <div class="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-cyan-500/40 rounded-tr-lg transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-cyan-500/60"></div>
+    <div class="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-cyan-500/40 rounded-bl-lg transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-cyan-500/60"></div>
+    <div class="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-cyan-500/40 rounded-br-lg transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-cyan-500/60"></div>
 
     <div class="relative h-full flex flex-col">
       <div class="flex items-start justify-between gap-4 flex-1">
         <div class="flex-1">
           <!-- Terminal label -->
-          <div class="terminal-text text-xs mb-3 opacity-50">
+          <div class="terminal-text text-xs mb-3 opacity-40">
             &gt; ./project --view
           </div>
-          <h3 class="text-xl md:text-2xl font-semibold text-zinc-100 mb-3 transition-colors {accentColors[accent]}">
+          <h3 class="text-xl md:text-2xl font-semibold text-zinc-100 mb-3 transition-colors duration-300 {accentColors[accent]}">
             {title}
           </h3>
-          <p class="text-cyan-100/50 text-sm md:text-base leading-relaxed">
+          <p class="text-cyan-100/40 text-sm md:text-base leading-relaxed">
             {description}
           </p>
         </div>
-        <svg class="w-5 h-5 text-cyan-500/50 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 text-cyan-500/40 group-hover:text-cyan-300 group-hover:translate-x-1.5 transition-all duration-300 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4 4V4"></path>
         </svg>
       </div>

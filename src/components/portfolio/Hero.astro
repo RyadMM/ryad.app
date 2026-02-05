@@ -11,45 +11,45 @@ interface Props {
 
 const { t } = Astro.props
 ---
-<header class="fade-in mb-16 md:mb-24">
+<header class="fade-in mb-12 md:mb-16">
   <!-- Terminal header -->
   <div class="terminal-text mb-6 flex items-center gap-3">
     <span class="text-cyan-400">[SYSTEM]</span>
-    <span class="opacity-50">INITIALIZING...</span>
+    <span class="opacity-40">INITIALIZING...</span>
     <span class="animate-pulse text-cyan-400">█</span>
   </div>
 
-  <div class="space-y-6">
-    <p class="text-cyan-400/70 text-base md:text-lg font-light tracking-wide terminal-text">
+  <div class="space-y-5">
+    <p class="text-cyan-400/60 text-base md:text-lg font-extralight tracking-wide terminal-text">
       {t.hero.greeting}
     </p>
-    <h1 class="text-6xl md:text-8xl font-semibold tracking-tight gradient-text tron-glow">
+    <h1 class="text-6xl md:text-7xl font-semibold tracking-tighter gradient-text tron-glow">
       {t.hero.name}
     </h1>
-    <p class="text-xl md:text-2xl text-cyan-100/70 font-light max-w-2xl leading-relaxed">
+    <p class="text-lg md:text-xl text-cyan-100/60 font-light max-w-xl leading-relaxed">
       {t.hero.bio}
     </p>
   </div>
 
   <!-- Terminal stats -->
-  <div class="mt-12 flex flex-wrap gap-6 terminal-text text-xs">
+  <div class="mt-10 flex flex-wrap gap-6 terminal-text text-xs">
     <div class="flex items-center gap-2">
-      <span class="text-cyan-500">></span>
-      <span class="opacity-60">STATUS:</span>
+      <span class="text-cyan-500/80">></span>
+      <span class="opacity-40">STATUS:</span>
       <span class="text-cyan-400">ONLINE</span>
     </div>
     <div class="flex items-center gap-2">
-      <span class="text-cyan-500">></span>
-      <span class="opacity-60">MODE:</span>
+      <span class="text-cyan-500/80">></span>
+      <span class="opacity-40">MODE:</span>
       <span class="text-cyan-400">CREATIVE</span>
     </div>
     <div class="flex items-center gap-2">
-      <span class="text-cyan-500">></span>
-      <span class="opacity-60">LOC:</span>
+      <span class="text-cyan-500/80">></span>
+      <span class="opacity-40">LOC:</span>
       <span class="text-cyan-400">GRID</span>
     </div>
   </div>
 
   <!-- Glowing line -->
-  <div class="mt-8 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+  <div class="mt-8 h-px bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent"></div>
 </header>

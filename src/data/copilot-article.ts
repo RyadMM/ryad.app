@@ -23,7 +23,7 @@ export const copilotArticleSections: ArticleSection[] = [
       <p>AI assistants like GitHub Copilot don't have access to your entire codebase or infinite memory. They operate within a fixed-capacity "working memory" called the <strong>context window</strong>.</p>
       <p>Think of it as a whiteboard of fixed size—everything must fit, and older content gets erased when space runs out. This constraint determines what the AI "knows" at any given moment.</p>
       <p>The context window includes: system prompts, file context, conversation history, and your current prompt—all competing for the same limited space. The composition varies between chat mode and inline completion, and depends on what files you have open, what code you've selected, and your conversation history.</p>
-      <p>Modern models like Claude 4.1 support up to 128,000 tokens, but this limit is still finite and requires careful management.</p>
+      <p>Modern models like GPT-4.1 support up to 128,000 tokens, but this limit is still finite and requires careful management.</p>
     `,
     chart: 'context-stack',
     slideMapping: 1

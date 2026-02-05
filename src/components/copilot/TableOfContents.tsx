@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import { type ArticleSection } from '@/data/copilot-article'
+import { useTranslations } from './useTranslations'
 
 interface TableOfContentsProps {
   sections: ArticleSection[]
+  lang?: 'en' | 'fr'
 }
 
-export default function TableOfContents({ sections }: TableOfContentsProps) {
+export default function TableOfContents({ sections, lang = 'en' }: TableOfContentsProps) {
+  const t = useTranslations('toc', lang)
   const [active, setActive] = useState('')
 
   useEffect(() => {
@@ -41,7 +44,7 @@ export default function TableOfContents({ sections }: TableOfContentsProps) {
 
   return (
     <nav className="table-of-contents">
-      <h3>On this page</h3>
+      <h3>{t('onThisPage')}</h3>
       <ul>
         {sections.map((section) => (
           <li key={section.id}>

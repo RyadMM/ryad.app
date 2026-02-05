@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useTranslations } from './useTranslations'
 
 const CONTEXT_LIMIT = 128000
-const CONTAINER_HEIGHT = 400
+const CONTAINER_HEIGHT = 280
 
 type MessageQuality = 'signal' | 'noise' | 'system'
 type Locale = 'en' | 'fr'
@@ -166,7 +166,7 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
   }
 
   return (
-    <div className="context-stack-single" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <div className="context-stack-single" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {/* Single Panel Layout */}
       <div>
         <h3 style={{
@@ -175,7 +175,7 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
           textTransform: 'uppercase',
           letterSpacing: '0.05em',
           color: '#a0a0a0',
-          marginBottom: '1rem',
+          marginBottom: '0.5rem',
           textAlign: 'center'
         }}>
           {t('contextMessages')}
@@ -334,7 +334,7 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
 
       {/* Quality Bar at bottom */}
       <div style={{
-        padding: '1rem',
+        padding: '0.75rem',
         background: signalPercent > 70
           ? 'rgba(34, 197, 94, 0.1)'
           : signalPercent > 40
@@ -343,7 +343,7 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
         borderRadius: '8px',
         border: `1px solid ${getQualityColor()}`
       }}>
-        <div style={{ marginBottom: '0.75rem' }}>
+        <div style={{ marginBottom: '0.5rem' }}>
           <div style={{ fontSize: '0.875rem', color: '#a0a0a0', marginBottom: '0.25rem' }}>
             {t('signalQuality')}: <strong style={{ color: getQualityColor() }}>
               {signalPercent.toFixed(1)}%
@@ -378,7 +378,7 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
 
       {/* Controls */}
       <div>
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '0.5rem' }}>
           <div style={{
             fontSize: '0.75rem',
             color: '#a0a0a0',
@@ -398,12 +398,12 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
                 disabled={usagePercent >= 150}
                 style={{
                   flex: 1,
-                  padding: '0.625rem 0.75rem',
+                  padding: '0.5rem 0.625rem',
                   background: 'rgba(0,0,0,0.3)',
                   border: `1px solid ${QUALITY_CONFIG.signal.color}`,
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   color: QUALITY_CONFIG.signal.color,
-                  fontSize: '0.8rem',
+                  fontSize: '0.75rem',
                   fontWeight: 500,
                   cursor: usagePercent >= 150 ? 'not-allowed' : 'pointer',
                   opacity: usagePercent >= 150 ? 0.5 : 1,
@@ -425,12 +425,12 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
                 disabled={usagePercent >= 150}
                 style={{
                   flex: 1,
-                  padding: '0.625rem 0.75rem',
+                  padding: '0.5rem 0.625rem',
                   background: 'rgba(0,0,0,0.3)',
                   border: `1px solid ${QUALITY_CONFIG.noise.color}`,
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   color: QUALITY_CONFIG.noise.color,
-                  fontSize: '0.8rem',
+                  fontSize: '0.75rem',
                   fontWeight: 500,
                   cursor: usagePercent >= 150 ? 'not-allowed' : 'pointer',
                   opacity: usagePercent >= 150 ? 0.5 : 1,
@@ -451,7 +451,7 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
           </div>
 
           {/* Quality AI Messages */}
-          <div style={{ marginBottom: '0.5rem' }}>
+          <div style={{ marginBottom: '0.25rem' }}>
             <div style={{ fontSize: '0.7rem', color: '#666', marginBottom: '0.25rem' }}>{t('aiResponses')}</div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <button
@@ -459,12 +459,12 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
                 disabled={usagePercent >= 150}
                 style={{
                   flex: 1,
-                  padding: '0.625rem 0.75rem',
+                  padding: '0.5rem 0.625rem',
                   background: 'rgba(0,0,0,0.3)',
                   border: `1px solid ${QUALITY_CONFIG.signal.color}`,
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   color: QUALITY_CONFIG.signal.color,
-                  fontSize: '0.8rem',
+                  fontSize: '0.75rem',
                   fontWeight: 500,
                   cursor: usagePercent >= 150 ? 'not-allowed' : 'pointer',
                   opacity: usagePercent >= 150 ? 0.5 : 1,
@@ -486,12 +486,12 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
                 disabled={usagePercent >= 150}
                 style={{
                   flex: 1,
-                  padding: '0.625rem 0.75rem',
+                  padding: '0.5rem 0.625rem',
                   background: 'rgba(0,0,0,0.3)',
                   border: `1px solid ${QUALITY_CONFIG.noise.color}`,
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   color: QUALITY_CONFIG.noise.color,
-                  fontSize: '0.8rem',
+                  fontSize: '0.75rem',
                   fontWeight: 500,
                   cursor: usagePercent >= 150 ? 'not-allowed' : 'pointer',
                   opacity: usagePercent >= 150 ? 0.5 : 1,
@@ -518,12 +518,12 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
               onClick={removeLast}
               style={{
                 flex: 1,
-                padding: '0.625rem 1rem',
+                padding: '0.5rem 0.875rem',
                 background: 'rgba(0,0,0,0.3)',
                 border: '1px solid rgba(255,255,255,0.2)',
-                borderRadius: '8px',
+                borderRadius: '6px',
                 color: '#eaeaea',
-                fontSize: '0.875rem',
+                fontSize: '0.8rem',
                 cursor: 'pointer',
                 transition: 'all 0.2s'
               }}
@@ -541,12 +541,12 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
             onClick={reset}
             style={{
               flex: messages.length <= 1 ? 1 : undefined,
-              padding: '0.625rem 1rem',
+              padding: '0.5rem 0.875rem',
               background: 'rgba(0,0,0,0.3)',
               border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: '8px',
+              borderRadius: '6px',
               color: '#eaeaea',
-              fontSize: '0.875rem',
+              fontSize: '0.8rem',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
@@ -565,24 +565,24 @@ export default function ContextStack({ lang = 'en' }: ContextStackProps) {
       {/* Legend */}
       <div style={{
         display: 'flex',
-        gap: '1.5rem',
+        gap: '1rem',
         justifyContent: 'center',
-        fontSize: '0.8rem'
+        fontSize: '0.75rem'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <div style={{
-            width: '20px',
-            height: '20px',
+            width: '16px',
+            height: '16px',
             border: `2px dashed ${QUALITY_CONFIG.signal.color}`,
             borderRadius: '4px',
             background: QUALITY_CONFIG.signal.bg
           }}></div>
           <span style={{ color: '#a0a0a0' }}>{t('quality')}</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <div style={{
-            width: '20px',
-            height: '20px',
+            width: '16px',
+            height: '16px',
             border: `2px dashed ${QUALITY_CONFIG.noise.color}`,
             borderRadius: '4px',
             background: QUALITY_CONFIG.noise.bg

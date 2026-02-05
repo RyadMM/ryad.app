@@ -62,14 +62,19 @@ export default function ContextDilutionChart({ lang = 'en' }: ContextDilutionCha
   const baseSignal = 20
 
   // Calculate totals from scenarios
-  const totalSignal = baseSignal + scenarios.reduce((sum, s) => sum + SCENARIOS[s.key].signal, 0)
+  const totalSignal = scenarios.length > 0 ? baseSignal + scenarios.reduce((sum, s) => sum + SCENARIOS[s.key].signal, 0) : 0
   const totalNoise = scenarios.reduce((sum, s) => sum + SCENARIOS[s.key].noise, 0)
   const total = totalSignal + totalNoise
-  const signalPercent = Math.round((totalSignal / total) * 100)
+  const signalPercent = total > 0 ? Math.round((totalSignal / total) * 100) : 0
 
   // Determine status colors and message based on signal percentage
   let signalColor, noiseColor, statusColor, statusMessage
-  if (signalPercent >= 60) {
+  if (scenarios.length === 0 || total === 0) {
+    signalColor = '#6b7280'
+    noiseColor = '#6b7280'
+    statusColor = '#6b7280'
+    statusMessage = t('dilution.addScenarios').replace(':', '')
+  } else if (signalPercent >= 60) {
     signalColor = '#4ade80'
     noiseColor = '#6b7280'
     statusColor = '#4ade80'
@@ -184,7 +189,7 @@ export default function ContextDilutionChart({ lang = 'en' }: ContextDilutionCha
           {statusMessage}
         </div>
         <div style={{ fontSize: '0.75rem', opacity: 0.8, fontWeight: 400 }}>
-          {t('dilution.signalLabel')}: {signalPercent}% | {scenarios.length} {scenarioPlural} applied
+          {t('dilution.signalLabel')}: {signalPercent}% | {scenarios.length} {scenarioPlural} {t('dilution.applied')}
         </div>
       </div>
 

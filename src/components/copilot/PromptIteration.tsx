@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useTranslations } from './useTranslations'
 
 interface PromptIterationProps {
@@ -8,9 +7,6 @@ interface PromptIterationProps {
 type Locale = 'en' | 'fr'
 
 export default function PromptIteration({ lang = 'en' as Locale }: PromptIterationProps) {
-  const [showDemo, setShowDemo] = useState(false)
-  const [currentStep, setCurrentStep] = useState(0)
-
   const t = useTranslations('contextStack', lang)
 
   // Translations for this component
@@ -47,15 +43,6 @@ export default function PromptIteration({ lang = 'en' as Locale }: PromptIterati
 
   const text = i18n[lang]
 
-  const runDemo = () => {
-    setShowDemo(true)
-    setCurrentStep(0)
-
-    // Step through the animation
-    setTimeout(() => setCurrentStep(1), 800)
-    setTimeout(() => setCurrentStep(2), 1600)
-  }
-
   const steps = [
     { label: text.draft, desc: text.draftDesc, signal: 30, prompt: text.draftPrompt },
     { label: text.refinement, desc: text.refinementDesc, signal: 60, prompt: text.refinementPrompt },
@@ -85,9 +72,6 @@ export default function PromptIteration({ lang = 'en' as Locale }: PromptIterati
         alignItems: 'stretch'
       }}>
         {steps.map((step, index) => {
-          const isActive = showDemo && currentStep >= index
-          const isCurrent = showDemo && currentStep === index
-
           return (
             <div
               key={index}
@@ -96,8 +80,8 @@ export default function PromptIteration({ lang = 'en' as Locale }: PromptIterati
                 flexDirection: 'column',
                 gap: '0.75rem',
                 transition: 'all 0.5s ease-out',
-                opacity: isActive ? 1 : 0.5,
-                transform: isActive ? 'translateY(0)' : 'translateY(10px)'
+                opacity: 1,
+                transform: 'translateY(0)'
               }}
             >
               {/* Step card */}
@@ -181,83 +165,16 @@ export default function PromptIteration({ lang = 'en' as Locale }: PromptIterati
                         background: step.signal >= 60 ? '#4ade80' : step.signal >= 50 ? '#fb923c' : '#f87171',
                         borderRadius: '4px',
                         transition: 'width 1s ease-out',
-                        boxShadow: isCurrent ? `0 0 10px ${step.signal >= 60 ? '#4ade80' : step.signal >= 50 ? '#fb923c' : '#f87171'}` : 'none'
+                        boxShadow: 'none'
                       }}
                     />
                   </div>
                 </div>
               </div>
-
-              {/* Arrow */}
-              {index < 2 && (
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  fontSize: '1.5rem',
-                  color: '#a0a0a0',
-                  transition: 'all 0.5s ease-out',
-                  opacity: isActive ? 1 : 0.3
-                }}>
-                  ⬇
-                </div>
-              )}
             </div>
           )
         })}
       </div>
-
-      {/* Demo button */}
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <button
-          onClick={runDemo}
-          disabled={showDemo}
-          style={{
-            padding: '0.75rem 2rem',
-            background: showDemo ? 'rgba(96, 165, 250, 0.2)' : 'rgba(96, 165, 250, 0.1)',
-            border: '1px solid #60a5fa',
-            borderRadius: '8px',
-            color: showDemo ? '#60a5fa' : '#a0a0a0',
-            fontSize: '0.875rem',
-            fontWeight: 500,
-            cursor: showDemo ? 'not-allowed' : 'pointer',
-            transition: 'all 0.2s'
-          }}
-          onMouseEnter={(e) => {
-            if (!showDemo) {
-              e.currentTarget.style.background = 'rgba(96, 165, 250, 0.2)'
-            }
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(96, 165, 250, 0.1)'
-          }}
-        >
-          {text.demonstrate}
-        </button>
-      </div>
-
-      {/* Reset */}
-      {showDemo && currentStep === 2 && (
-        <div style={{ textAlign: 'center' }}>
-          <button
-            onClick={() => {
-              setShowDemo(false)
-              setCurrentStep(0)
-            }}
-            style={{
-              padding: '0.5rem 1rem',
-              background: 'transparent',
-              border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: '6px',
-              color: '#a0a0a0',
-              fontSize: '0.8rem',
-              cursor: 'pointer',
-              transition: 'all 0.2s'
-            }}
-          >
-            ↺ Reset
-          </button>
-        </div>
-      )}
 
       {/* Animation keyframes */}
       <style>{`

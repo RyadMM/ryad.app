@@ -13,8 +13,7 @@ export default function PrimacyRecencyChart({ lang = 'en' }: PrimacyRecencyChart
   const [sessionType, setSessionType] = useState<'short' | 'long'>('short')
 
   const positions = [
-    t('primacy.start'), '', t('primacy.early'), '', t('primacy.midEarly'), '',
-    t('primacy.middle'), '', t('primacy.midLate'), '', t('primacy.late'), '', t('primacy.end')
+    t('primacy.start'), '', '', '', '', '', t('primacy.middle'), '', '', '', '', t('primacy.end')
   ]
 
   const shortSession = [95, 90, 82, 75, 70, 68, 65, 68, 72, 80, 88, 94, 98]
@@ -33,7 +32,7 @@ export default function PrimacyRecencyChart({ lang = 'en' }: PrimacyRecencyChart
         label: 'Relative Attention Weight',
         data: currentData,
         fill: true,
-        backgroundColor: (context) => {
+        backgroundColor: (context: any) => {
           const chart = context.chart
           const { ctx: chartCtx, chartArea } = chart
           if (!chartArea) return 'rgba(96, 165, 250, 0.3)'
@@ -93,7 +92,7 @@ export default function PrimacyRecencyChart({ lang = 'en' }: PrimacyRecencyChart
             tooltip: {
               callbacks: {
                 title: (items) => `${t('primacy.positionLabel')}${items[0].label || t('primacy.contextLabel')}`,
-                label: (context) => `${t('primacy.attentionWeight')}: ${context.raw}%`
+                label: (context: any) => `${t('primacy.attentionWeight')}: ${context.raw}%`
               }
             }
           },

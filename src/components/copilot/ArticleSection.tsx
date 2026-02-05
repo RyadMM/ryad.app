@@ -9,9 +9,10 @@ import ExploreExecuteChart from './charts/ExploreExecuteChart'
 interface ArticleSectionProps {
   section: ArticleSectionType
   lang?: 'en' | 'fr'
+  chartOnly?: boolean
 }
 
-export default function ArticleSection({ section, lang }: ArticleSectionProps) {
+export default function ArticleSection({ section, lang, chartOnly = false }: ArticleSectionProps) {
   const renderChart = () => {
     switch (section.chart) {
       case 'context-stack':
@@ -29,6 +30,11 @@ export default function ArticleSection({ section, lang }: ArticleSectionProps) {
       default:
         return null
     }
+  }
+
+  // If chartOnly mode, return just the chart
+  if (chartOnly) {
+    return renderChart()
   }
 
   return (

@@ -4,7 +4,7 @@
 import translations from '@/i18n/translations.json'
 
 type Locale = 'en' | 'fr'
-type Namespace = 'contextStack' | 'charts'
+type Namespace = 'contextStack' | 'charts' | 'toc'
 
 export function useTranslations(namespace: Namespace, lang: Locale) {
   const ns = translations[lang][namespace] || translations['en'][namespace]

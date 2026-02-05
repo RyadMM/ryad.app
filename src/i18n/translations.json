@@ -19,6 +19,9 @@
     "footer": {
       "email": "Get in touch"
     },
+    "toc": {
+      "onThisPage": "On this page"
+    },
     "contextStack": {
       "contextMessages": "Context Messages",
       "qualityImpact": "Quality Impact",
@@ -85,7 +88,8 @@
         "resetScenarios": "Reset Scenarios",
         "activeScenarios": "Active scenarios:",
         "scenario": "scenario",
-        "scenarios": "scenarios"
+        "scenarios": "scenarios",
+        "applied": "applied"
       },
       "exploreExecute": {
         "contextBreadth": "Context Breadth",
@@ -131,6 +135,9 @@
     },
     "footer": {
       "email": "Me contacter"
+    },
+    "toc": {
+      "onThisPage": "Sur cette page"
     },
     "contextStack": {
       "contextMessages": "Messages du Contexte",
@@ -198,7 +205,8 @@
         "resetScenarios": "Réinitialiser",
         "activeScenarios": "Scénarios actifs :",
         "scenario": "scénario",
-        "scenarios": "scénarios"
+        "scenarios": "scénarios",
+        "applied": "appliqué"
       },
       "exploreExecute": {
         "contextBreadth": "Étendue du contexte",

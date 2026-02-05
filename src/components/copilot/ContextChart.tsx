@@ -47,11 +47,10 @@ export default function ContextChart({ value }: ContextChartProps) {
             ticks: {
               callback: (v) => v + '%',
               color: '#a3a3a3',
-              font: { size: 13, weight: '500' }
+              font: { size: 13, weight: 500 }
             },
             grid: {
-              color: '#333333',
-              drawBorder: false
+              color: '#333333'
             }
           },
           y: { display: false }

@@ -29,6 +29,8 @@ const MESSAGE_TYPES = {
   }
 } as const
 
+type MessageLabelKey = 'System' | 'User' | 'Assistant'
+
 type MessageKey = keyof typeof MESSAGE_TYPES
 
 interface Message {
@@ -69,7 +71,7 @@ export default function ContextCapacityChart({ lang = 'en' }: ContextCapacityCha
 
     messages.forEach((msg) => {
       const msgType = MESSAGE_TYPES[msg.type]
-      let displayLabel = msgType.label
+      let displayLabel: string = msgType.label
 
       if (msg.type === 'userMessage') {
         userCount++
@@ -243,7 +245,7 @@ export default function ContextCapacityChart({ lang = 'en' }: ContextCapacityCha
           {messages.map((msg, idx) => {
             const msgType = MESSAGE_TYPES[msg.type]
             const width = (msgType.tokens / CONTEXT_LIMIT) * 100
-            let label = msgType.label
+            let label: string = msgType.label
             if (msg.type === 'userMessage') {
               const num = messages.slice(0, idx + 1).filter(m => m.type === 'userMessage').length
               label = `U${num}`

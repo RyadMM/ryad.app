@@ -21,7 +21,7 @@ const description = lang === 'fr'
 const articleSections = lang === 'fr' ? copilotArticleSectionsFR : copilotArticleSections
 ---
 <BlogLayout title={title} description={description} lang={lang}>
-  <TableOfContents client:load sections={articleSections} slot="toc" />
+  <TableOfContents client:load sections={articleSections} lang={lang} slot="toc" />
   <Article client:load lang={lang} sections={articleSections} />
 </BlogLayout>
 
@@ -97,11 +97,14 @@ const articleSections = lang === 'fr' ? copilotArticleSectionsFR : copilotArticl
     /* Mobile: use most of screen */
     max-width: 100%;
     padding: 1rem;
+    overflow-y: auto; /* Allow scrolling when content is too tall */
+    max-height: calc(100vh - 12rem); /* Leave space for progress bar + nav controls */
   }
 
   @media (min-width: 640px) {
     .slide-content {
       padding: 1.5rem;
+      max-height: calc(100vh - 11rem); /* Slightly more space on larger screens */
     }
   }
 
@@ -110,6 +113,7 @@ const articleSections = lang === 'fr' ? copilotArticleSectionsFR : copilotArticl
       /* Tablet: reasonable constraint */
       max-width: 95%;
       padding: 2rem;
+      max-height: calc(100vh - 10rem);
     }
   }
 
@@ -118,6 +122,7 @@ const articleSections = lang === 'fr' ? copilotArticleSectionsFR : copilotArticl
       /* Desktop: use more width */
       max-width: 95%;
       padding: 2.5rem;
+      max-height: calc(100vh - 10rem);
     }
   }
 
@@ -126,6 +131,7 @@ const articleSections = lang === 'fr' ? copilotArticleSectionsFR : copilotArticl
       /* Large desktop: use most available space */
       max-width: 98%;
       padding: 3rem;
+      max-height: calc(100vh - 9rem);
     }
   }
 
@@ -134,6 +140,7 @@ const articleSections = lang === 'fr' ? copilotArticleSectionsFR : copilotArticl
       /* Very large screens: nearly full width */
       max-width: 1920px;
       padding: 3.5rem;
+      max-height: calc(100vh - 9rem);
     }
   }
 
@@ -450,6 +457,10 @@ const articleSections = lang === 'fr' ? copilotArticleSectionsFR : copilotArticl
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    line-height: 1.2; /* Proper line height for descenders */
+    overflow: visible; /* Don't clip descenders */
+    padding-bottom: 0.5rem; /* Extra space for descenders */
+    display: inline-block; /* Ensure overflow works */
   }
 
   /* Scenario Cards - Professional interactive style */
